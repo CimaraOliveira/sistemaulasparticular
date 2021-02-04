@@ -1,5 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.db import models
+from django.conf import settings
+import os
+from PIL import Image
+from django.utils.text import slugify
 
 class Professor(models.Model):
     nome = models.CharField(max_length=50)
@@ -23,9 +27,37 @@ class Disciplina(models.Model):
     nome = models.CharField(max_length=50)
     titulo = models.TextField(max_length=255)
     descricao_longa = models.TextField()
-    imagem = models.ImageField(upload_to='disciplina_imagens/%Y/%m/',
-                               blank=True, null=True)
-    slug = models.SlugField(unique=True)
+    imagem = models.ImageField(upload_to='disciplina_imagens/%Y/%m/',blank=True, null=True)
+    slug = models.SlugField(unique=True, blank=True, null=True)
+
+    @staticmethod
+    def resize_image(img, new_width=800):
+        img_full_path = os.path.join(settings.MEDIA_ROOT, img.name)
+        img_pill = Image.open(img_full_path)
+        original_width, original_height = img_pill.size
+
+        if(original_width <= new_width):
+            img_pill.close()
+            return
+
+        new_height = round((new_width * original_height), Image.LANCZOS)
+        new_img.save(
+            img_full_path,
+            optimize=True,
+            quality=50
+        )
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            slug = f'{slugify(self.nome)}'
+            self.slug = slug
+
+        super().save(*args, **kwargs)
+
+        max_image_size = 800
+
+        if self.imagem:
+            self.resize_image(self.imagem, max_image_size)
 
     def __str__(self):
-        return self.nome or self.professor
+       return self.nome or self.professor
