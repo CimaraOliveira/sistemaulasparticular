@@ -3,15 +3,15 @@
 {%block conteudo %}
 
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-12" >
         <div class="card-columns">
 
             {% for disciplina in disciplinas %}
-            <div class="card">
+            <div class="card" style="width: 18rem;">
 
                 {% if disciplina.imagem %}
                 <a href="{{disciplina.slug}}">
-                <img class="card-img-top" src="{{ disciplina.imagem.url }}" alt="{{ disciplina.nome }}"
+                <img class="card-img-top" src="{{ disciplina.imagem.url  }}" alt="{{ disciplina.nome }}"
                 style="max-width: 350px; height: auto">
                 </a>
                 {% endif %}
@@ -21,12 +21,12 @@
                     <p class="card-text">{{ disciplina.titulo }}</p>
 
                 </div>
-                <div class="card-footer bg-transparent border-top-light-custom text-center">
-                    <!--<a href="post.html" class="p-2 mb-2 bg-secondary text-white text-white btn-sm m-1 btn-block">
+                <!--<div class="card-footer bg-transparent border-top-light-custom text-center">
+                    <a href="{{disciplina.slug}}" class="p-2 mb-2 bg-secondary text-white text-white btn-sm m-1 btn-block">
                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         Detalhes
-                    </a>-->
-                </div>
+                    </a>
+                </div>-->
             </div>
 
 

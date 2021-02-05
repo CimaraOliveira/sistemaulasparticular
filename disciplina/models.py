@@ -1,9 +1,10 @@
 from django.db import models
-from django.db import models
 from django.conf import settings
 import os
 from PIL import Image
 from django.utils.text import slugify
+from django.utils import timezone
+
 
 class Professor(models.Model):
     nome = models.CharField(max_length=50)
@@ -29,6 +30,7 @@ class Disciplina(models.Model):
     descricao_longa = models.TextField()
     imagem = models.ImageField(upload_to='disciplina_imagens/%Y/%m/',blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
+    data_reserva = models.DateTimeField(default=timezone.now)
 
     @staticmethod
     def resize_image(img, new_width=800):
