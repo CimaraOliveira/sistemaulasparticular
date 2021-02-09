@@ -8,7 +8,7 @@ class DisciplinaAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Disciplina, DisciplinaAdmin)
 admin.site.register(models.Professor)
-admin.site.register(models.Usuario)
+#admin.site.register(models.Usuario)
 
 
 

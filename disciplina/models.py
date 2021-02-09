@@ -19,9 +19,10 @@ class Professor(models.Model):
         return self.nome
 
 class Usuario(models.Model):
-    #usuario = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Usuario')
-    cpf = models.CharField(max_length=11,blank=True, null=True)
-    telefone = models.CharField(max_length=15,blank=True, null=True)
+    nome = models.CharField(max_length=30)
+    sobrenome = models.CharField(max_length=30, blank=True)
+    email = models.CharField(max_length=30, blank=True)
+    telefone = models.CharField(max_length=20)
 
 
     """def __str__(self):
