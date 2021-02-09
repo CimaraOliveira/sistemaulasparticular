@@ -1,9 +1,11 @@
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.models import User
 import os
 from PIL import Image
 from django.utils.text import slugify
 from django.utils import timezone
+
 
 
 class Professor(models.Model):
@@ -17,16 +19,19 @@ class Professor(models.Model):
         return self.nome
 
 class Usuario(models.Model):
-    nome = models.CharField(max_length=50)
-    sobrenome = models.CharField(max_length=50)
-    email = models.CharField(max_length=50)
+    #usuario = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Usuario')
+    cpf = models.CharField(max_length=11,blank=True, null=True)
+    telefone = models.CharField(max_length=15,blank=True, null=True)
 
+
+    """def __str__(self):
+        return f'{self.usuario}'"""
 
 class Disciplina(models.Model):
     usuario = models.ManyToManyField(Usuario)
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
     nome = models.CharField(max_length=50)
-    titulo = models.TextField(max_length=255)
+    titulo = models.TextField(max_length=25)
     descricao_longa = models.TextField()
     imagem = models.ImageField(upload_to='disciplina_imagens/%Y/%m/',blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
@@ -63,3 +68,15 @@ class Disciplina(models.Model):
 
     def __str__(self):
        return self.nome or self.professor
+
+"""class Reserva(models.Model):
+    disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
+    nome = models.CharField(max_length=50)
+    titulo = models.TextField(max_length=255)
+    dataReserva = models.DateTimeField(auto_now_add=True)
+    horaFim = models.TimeField(verbose_name='Hora Início')
+    quantidade_dia = models.SmallIntegerField('Quantidades de dias ', default=6)
+
+    def __str__(self):
+         return self.nome"""
