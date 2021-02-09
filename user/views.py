@@ -76,8 +76,8 @@ class HomeUsuario(ListView):
     context_object_name = 'disciplinas'
 
 
-"""def logout(request):
+def logout(request):
     auth.logout(request)
-    return redirect('login')"""
+    return redirect('login')
 
 
