@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.core.validators import validate_email
 from django.contrib.auth.models import User
+from django.views.generic.list import ListView
+from disciplina.models import Disciplina
+
 from django.contrib.auth.decorators import login_required
 
 def criar(request):
@@ -9,6 +12,7 @@ def criar(request):
         return render(request, 'user/criar.html')
 
     nome = request.POST.get('nome')
+    sobrenome = request.POST.get('sobrenome')
     email = request.POST.get('email')
     usuario = request.POST.get('usuario')
     senha = request.POST.get('senha')
@@ -40,7 +44,7 @@ def criar(request):
     messages.success(request, 'Usuário Registrado com Sucesso!')
 
     user = User.objects.create_user(email=email, username=usuario, password=senha,
-                                    first_name=nome)
+                                    first_name=nome, last_name=sobrenome)
     user.save()
     return redirect('login')
 
@@ -48,20 +52,32 @@ def login(request):
     if request.method != 'POST':
         return render(request, 'user/login.html')
 
-    usuario = request.POST.get('usuario')
+    email = request.POST.get('usuario')
     senha = request.POST.get('senha')
 
-    user = auth.authenticate(request, usuario=usuario, password=senha)
+    user = auth.authenticate(request, email=email, password=senha)
 
     if not user:
         messages.error(request, 'Usuário ou Senha Inválidos!')
         return render(request, 'user/login.html')
+
     else:
         auth.login(request, user)
         messages.success(request, 'Login efetuado com Sucesso!')
         return redirect('home')
 
 
-def logout(request):
+
+#@login_required(redirect_field_name='login')
+class HomeUsuario(ListView):
+    model = Disciplina
+    template_name = 'disciplina/home.html'
+
+    context_object_name = 'disciplinas'
+
+
+"""def logout(request):
     auth.logout(request)
-    return redirect('home')
+    return redirect('login')"""
+
+
