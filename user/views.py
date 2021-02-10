@@ -41,6 +41,10 @@ def criar(request):
         messages.error(request, 'Email já existe!')
         return render(request, 'user/criar.html')
 
+    if User.objects.filter(username=usuario).exists():
+        messages.error(request, 'Esse nome de Usuário já existe!')
+        return render(request, 'user/criar.html')
+
     messages.success(request, 'Usuário Registrado com Sucesso!')
 
     user = User.objects.create_user(email=email, username=usuario, password=senha,
@@ -52,7 +56,7 @@ def login(request):
     if request.method != 'POST':
         return render(request, 'user/login.html')
 
-    email = request.POST.get('usuario')
+    email = request.POST.get('email')
     senha = request.POST.get('senha')
 
     user = auth.authenticate(request, email=email, password=senha)
@@ -65,6 +69,7 @@ def login(request):
         auth.login(request, user)
         messages.success(request, 'Login efetuado com Sucesso!')
         return redirect('home')
+
 
 
 

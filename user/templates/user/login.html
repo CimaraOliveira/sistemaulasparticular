@@ -1,29 +1,89 @@
-{% extends 'base.html' %}
 
-{% block conteudo %}
-  <h1 class="mt-3 mb-3">Login</h1>
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
 
- {% if not user.is_authenticated %}
-<form method="POST" action="{% url 'login' %}">
-  {% csrf_token %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="505676379798-3hal9ksn2l6dgd7k716siroqt8ojhknj.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <title>SAsP</title>
+    <!--Made with love by Mutiullah Samim -->
+    <!--Bootsrap 4 CDN-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!--Custom styles-->
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href="{% static 'public/LoginCss/login.css'%}" rel="stylesheet">
+</head>
 
-  <!--<div class="form-group">
-    <label>Email</label>
-    <input type="email" name="email"  value="{{request.POST.email}}" class="form-control">
-  </div>-->
+    <body class="bg-dark">
 
-  <div class="form-group">
-    <label>Usuario</label>
-    <input type="text" name="usuario"  value="{{request.POST.usuario}}" class="form-control">
-  </div>
+<br><br><br>
+<div class="container">
+    <div class="d-flex justify-content-center h-80">
+        <div class="card card-login mx-auto mt-10">
+
+            <div class="card-header">
+                <h3>SAsP</h3>
+                <div class="d-flex justify-content-end social_icon">
+                    <!--<span><i class="fab fa-facebook-square"></i></span>-->
+                    <span><i class="fab fa-google-plus-square"> </i></span>
+
+                     </div>
+                </div>
+
+            <div class="card-body">
+
+                   {% if not user.is_authenticated %}
+
+                  <form method="POST" action="{% url 'login' %}">
+                      {% csrf_token %}
+                      {% include 'parciais/_messages.html' %}
+
+                      <div class="form-group">
+                          <label>Email</label>
+                          <input type="email" name="email" value="{{request.POST.email}}" class="form-control">
+                      </div>
+
+                      <!--<div class="form-group">
+                        <label>Usuario</label>
+                        <input type="text" name="usuario" value="{{request.POST.usuario}}" class="form-control">
+                      </div>-->
 
 
-  <div class="form-group">
-    <label>Senha</label>
-    <input type="password" name="senha"  class="form-control">
-  </div>
-  <button type="submit" class="btn btn-primary">Entrar</button>
-</form>
-{% endif %}
+                      <div class="form-group">
+                          <label>Senha</label>
+                          <input type="password" name="senha" class="form-control">
+                      </div>
+                      <button type="submit" class="btn float-right login_btn">
+                          Entrar
+                      </button>
+                </form>
+                {% endif%}
+                <div class="text">
+                    <center>
+                        <a style="color:blue" class="d-block small mt-2" href="{% url 'criar'%}">Cadastre-se</a>
+                        <a style="color:blue " class="d-block small mt-2" href="#">Recuperar Senha?</a>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-{% endblock %}
+
+
+      <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'public/bootstrap/vendor/jquery/jquery.min.js'%}"></script>
+    <script src="{% static 'public/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'public/bootstrap/vendor/jquery-easing/jquery.easing.min.js'%}"></script>
+</body>
+
+</html>
+
+
