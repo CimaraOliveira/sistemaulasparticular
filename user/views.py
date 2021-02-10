@@ -3,9 +3,26 @@ from django.contrib import messages, auth
 from django.core.validators import validate_email
 from django.contrib.auth.models import User
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+
 from disciplina.models import Disciplina
 
 from django.contrib.auth.decorators import login_required
+
+#@login_required(redirect_field_name='login')
+class HomeUsuario(ListView):
+    model = Disciplina
+    template_name = 'disciplina/home.html'
+
+    context_object_name = 'disciplinas'
+
+
+class DetalhesDisciplina(DetailView):
+    model = Disciplina
+    template_name = 'user/detalhesDisciplina.html'
+    context_object_name = 'disciplina'
+    slug_url_kwarg = 'slug'
+
 
 def criar(request):
     if request.method != 'POST':
@@ -56,29 +73,22 @@ def login(request):
     if request.method != 'POST':
         return render(request, 'user/login.html')
 
-    email = request.POST.get('email')
+    usuario = request.POST.get('usuario')
     senha = request.POST.get('senha')
 
-    user = auth.authenticate(request, email=email, password=senha)
+    if not usuario or not senha:
+        messages.error(request, 'Preencha os campos!')
+        return redirect('login')
 
-    if not user:
-        messages.error(request, 'Usuário ou Senha Inválidos!')
-        return render(request, 'user/login.html')
+    user = auth.authenticate(request, username=usuario, password=senha)
 
-    else:
-        auth.login(request, user)
-        messages.success(request, 'Login efetuado com Sucesso!')
-        return redirect('home')
+    if user is not None:
+        if user.is_active:
+           messages.success(request, 'Login efetuado com Sucesso!')
+           return redirect('homeusuario')
 
-
-
-
-#@login_required(redirect_field_name='login')
-class HomeUsuario(ListView):
-    model = Disciplina
-    template_name = 'disciplina/home.html'
-
-    context_object_name = 'disciplinas'
+    messages.error(request, 'Usuário ou Senha Inválidos!')
+    return redirect('login')
 
 
 def logout(request):
