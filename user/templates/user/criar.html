@@ -28,7 +28,7 @@
     <div class="card-header">Cadastre-se</div>
   <div class="card-body">
 
-    <form method="POST" action="{% url 'criar' %}">
+    <form method="POST" action="{% url 'user:criar' %}">
       {% include 'parciais/_messages.html' %}
 
       {% csrf_token %}

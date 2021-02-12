@@ -4,10 +4,11 @@ from django.core.validators import validate_email
 from django.contrib.auth.models import User
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-
+from django.contrib.auth.views import LogoutView
+from django.views.generic import ListView, TemplateView, DetailView, RedirectView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from disciplina.models import Disciplina
 
-from django.contrib.auth.decorators import login_required
 
 #@login_required(redirect_field_name='login')
 class HomeUsuario(ListView):
@@ -67,7 +68,8 @@ def criar(request):
     user = User.objects.create_user(email=email, username=usuario, password=senha,
                                     first_name=nome, last_name=sobrenome)
     user.save()
-    return redirect('login')
+    return redirect('user:login')
+
 
 def login(request):
     if request.method != 'POST':
@@ -76,23 +78,49 @@ def login(request):
     usuario = request.POST.get('usuario')
     senha = request.POST.get('senha')
 
+
     if not usuario or not senha:
         messages.error(request, 'Preencha os campos!')
-        return redirect('login')
+        return redirect('user:login')
+
+    if request.method != 'POST':
+        return render(request, 'user/login.html')
+
+    usuario = request.POST.get('usuario')
+    senha = request.POST.get('senha')
+
+    if not usuario or not senha:
+        messages.error(request, 'Preencha os campos!')
+        return redirect('user:login')
 
     user = auth.authenticate(request, username=usuario, password=senha)
 
-    if user is not None:
+    """if user is not None:
         if user.is_active:
            messages.success(request, 'Login efetuado com Sucesso!')
-           return redirect('homeusuario')
+           return redirect('disciplina:home')
 
     messages.error(request, 'Usuário ou Senha Inválidos!')
-    return redirect('login')
+    return redirect('user:login')"""
+
+    TIPOS_USUARIOS = request.POST.get('TIPOS_USUARIOS')
+    if user is not None:
+        if user.is_active:
+            if user.ALUNO:
+                    messages.success(request, 'Login efetuado com Sucesso!')
+                    return redirect('disciplina:home')
+            if user.Professor:
+                    messages.success(request, 'Login efetuado com Sucesso!')
+                    return redirect('user:homeusuario')
+
+                #return redirect('disciplina:home')
+
+    messages.error(request, 'Usuário ou Senha Inválidos!')
+    return redirect('user:login')
 
 
 def logout(request):
-    auth.logout(request)
-    return redirect('login')
+    logout(request)
+    return redirect('user:login')
 
 

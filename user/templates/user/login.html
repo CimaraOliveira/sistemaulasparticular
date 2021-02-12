@@ -41,7 +41,7 @@
 
                    {% if user.is_authenticated %}
 
-                  <form method="POST" action="{% url 'login' %}">
+                  <form method="POST" action="{% url 'user:login' %}">
                       {% csrf_token %}
 
                       <div class="form-group">
@@ -60,7 +60,7 @@
                 {% endif%}
                 <div class="text">
                     <center>
-                        <a style="color:blue" class="d-block small mt-2" href="{% url 'criar'%}">Cadastre-se</a>
+                        <a style="color:blue" class="d-block small mt-2" href="{% url 'user:criar'%}">Cadastre-se</a>
                         <a style="color:blue " class="d-block small mt-2" href="#">Recuperar Senha?</a>
                     </center>
                 </div>

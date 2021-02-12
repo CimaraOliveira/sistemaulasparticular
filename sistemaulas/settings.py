@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'disciplina.apps.DisciplinaConfig',
     'user.apps.UserConfig',
+    'professor.apps.ProfessorConfig'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

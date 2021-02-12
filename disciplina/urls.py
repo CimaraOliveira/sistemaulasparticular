@@ -8,7 +8,6 @@ urlpatterns = [
 
     path('', views.Home.as_view(), name='home'),
     path('<slug>', views.DetalhesDisciplina.as_view(), name='detalhesDisciplina'),
-
     path('prof/', views.professor, name='prof'),
 
 
