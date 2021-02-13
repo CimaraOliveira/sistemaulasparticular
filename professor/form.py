@@ -6,3 +6,4 @@ class CadDiscForm(ModelForm):
     class Meta:
         model = Disciplina
         fields = '__all__'
+        exclude = ('slug',)

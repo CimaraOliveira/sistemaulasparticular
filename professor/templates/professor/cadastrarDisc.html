@@ -1,12 +1,13 @@
-{% extends 'base.html'%}
-{% load crispy_forms_tags %}
+{% extends 'base.html' %}
+<!--{% load crispy_forms_tags %}-->
 
 {% block conteudo %}
 
 <h1>Adicionar Disciplina</h1>
 
+{% include 'parciais/_messages.html' %}
 <div class="container">
-     <form method="POST" action="" enctype="multipart/form-data">
+     <form method="POST" action="{% url 'professor:cadastrarDisc' %}" enctype="multipart/form-data">
          {% csrf_token %}
 
          <table class="table">
@@ -21,8 +22,5 @@
             </div>
       </form>
 </div>
-
-
-
 
 {% endblock%}

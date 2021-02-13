@@ -9,18 +9,6 @@ from django.urls import reverse
 
 from django.utils import timezone
 
-class AdmAtivoManager(UserManager):
-    def get_queryset(self):
-        return super().get_queryset().filter(tipo='ADM', is_active=True)
-
-class AlunoAtivoManager(UserManager):
-    def get_queryset(self):
-        return super().get_queryset().filter(tipo='ALUNO', is_active=True)
-
-class ProfessorAtivoManager(UserManager):
-    def get_queryset(self):
-        return super().get_queryset().filter(Q(tipo='PROFESSOR') | Q(tipo='ADM'), is_active=True)
-
 
 
 class Professor(models.Model):
@@ -75,6 +63,13 @@ class Disciplina(models.Model):
             self.slug = slug
 
         super().save(*args, **kwargs)
+
+        def save(self, *args, **kwargs):
+            if not self.id:
+                id = f'{slugify(self.nome)}'
+                self.slug = id
+
+            super().save(*args, **kwargs)
 
         max_image_size = 800
 
@@ -165,5 +160,3 @@ class Reserva(models.Model):
         verbose_name = 'Inscrição'
         verbose_name_plural = 'Inscrições'
         unique_together = (('usuario', 'disciplina'),)
-
-
