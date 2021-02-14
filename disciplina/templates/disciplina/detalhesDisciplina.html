@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
+<!-- <form action="{% url 'disciplina:reservarDisciplina' disciplina.slug %}" method="POST" enctype="multipart/form-data" >
+ -->
+<form action="{% url 'disciplina:reservarDisciplina' disciplina.slug %}" method="POST" enctype="multipart/form-data" >
+    {% csrf_token %}
 <div class="row">
     <div class="col-lg">
         <div class="row no-gutters">
@@ -11,6 +15,8 @@
             </div>
         </div>
     </div>
+
+
 <div class="col-lg">
     <div class="mt-4 mt-lg-0">
         <h1 class="h2">{{disciplina.nome}}</h1>
@@ -19,7 +25,7 @@
             {{disciplina.professor}}
         </h1>
 
-        <form action="#" >
+        <!--<form action="{% url 'disciplina:reservarDisciplina' disciplina.slug %}" method="POST" enctype="multipart/form-data">
         <div class="col-md-6 form-group">
             <label for="data_reserva">Data Inscrição</label>
             <input type="date" class="form-control" id="dateBirth"
@@ -34,9 +40,17 @@
                     Inscrever-se
                 </button>
             </div>
-        </form>
+        </form>-->
     </div>
 </div>
-</div>
+</div>       <br>
+
+             <div class="text-left">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    Inscrever-se
+                </button>
+            </div>
+</form>
 
 {% endblock %}

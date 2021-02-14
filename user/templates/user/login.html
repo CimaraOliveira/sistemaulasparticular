@@ -39,7 +39,7 @@
 
             <div class="card-body">
 
-                   {% if not user.is_authenticated %}
+                   {% if user.is_authenticated %}
 
                   <form method="POST" action="{% url 'user:login' %}">
                       {% csrf_token %}

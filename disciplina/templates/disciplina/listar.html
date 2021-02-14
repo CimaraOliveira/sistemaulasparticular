@@ -16,13 +16,15 @@
                 style="max-width: 350px; height: auto">
                 </a>
                 {% endif %}
-
+            {% if request.user.is_authenticated and request.user.groups.all.0.name == 'admin' %}
                 <div class="card-body">
                      <a href="{{ disciplina.slug }}">
                          <h5 class="card-title">{{ disciplina.nome }}</h5></a>
                     <p class="card-text">{{ disciplina.titulo }}</p>
-
                 </div>
+            {% endif %}
+
+
                 <!--<div class="card-footer bg-transparent border-top-light-custom text-center">
                     <a href="{{disciplina.slug}}" class="p-2 mb-2 bg-secondary text-white text-white btn-sm m-1 btn-block">
                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>

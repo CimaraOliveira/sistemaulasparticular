@@ -22,7 +22,7 @@ class HomeUsuario(ListView):
 
 class DetalhesDisciplina(DetailView):
     model = Disciplina
-    template_name = 'user/detalhesDisciplina.html'
+    template_name = 'user/detail.html'
     context_object_name = 'disciplina'
     slug_url_kwarg = 'slug'
 
@@ -100,7 +100,7 @@ def login(request):
     if user is not None:
         if user.is_active:
            messages.success(request, 'Login efetuado com Sucesso!')
-           return redirect('disciplina:home')
+           return redirect('disciplina:listar')
 
     messages.error(request, 'Usuário ou Senha Inválidos!')
     return redirect('user:login')
@@ -123,6 +123,6 @@ def login(request):
 
 def user_logout(request):
     auth.logout(request)
-    return redirect('user:login')
+    return redirect('disciplina:listar')
 
 

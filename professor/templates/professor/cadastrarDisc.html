@@ -7,7 +7,7 @@
 
 {% include 'parciais/_messages.html' %}
 <div class="container">
-     <form method="POST" action="{% url 'professor:cadastrarDisc' %}" enctype="multipart/form-data">
+     <form method="POST" action="{% url 'professor:detail' %}" enctype="multipart/form-data">
          {% csrf_token %}
 
          <table class="table">

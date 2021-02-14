@@ -6,6 +6,7 @@ from PIL import Image
 from django.utils.text import slugify
 from django.db.models import Q
 from django.urls import reverse
+from django import forms
 
 from django.utils import timezone
 
@@ -89,7 +90,7 @@ class Usuario(models.Model):
     )
 
     USERNAME_FIELD = 'email'
-
+    #usuario = models.OneToOneField(User, on_delete=models.CASCADE,related_name='inscricao')
     tipo = models.CharField('Tipo do usuario', max_length=15,choices=TIPOS_USUARIOS, default='ALUNO')
     is_active = models.BooleanField('Ativo', default=False)
     slug = models.SlugField('Atalho', max_length=200, null=True, blank=True)
@@ -142,8 +143,8 @@ class Usuario(models.Model):
 
 class Reserva(models.Model):
     #usuario = models.ManyToManyField(User)
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE,related_name='inscricao')
-    disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE,related_name='inscricao')
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE,related_name='inscricao')
+    disciplina = models.OneToOneField(Disciplina, on_delete=models.CASCADE,related_name='inscricao')
     STATUS_CHOICE = (
         (0, 'Pendente'),
         (1, 'Aprovdo'),
@@ -160,3 +161,8 @@ class Reserva(models.Model):
         verbose_name = 'Inscrição'
         verbose_name_plural = 'Inscrições'
         unique_together = (('usuario', 'disciplina'),)
+
+class FormReserva(forms.ModelForm):
+    class Meta:
+        model = Reserva
+        exclude = ()

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{%block conteudo%}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Disciplina</th>
+      <th scope="col">Professor</th>
+      <th scope="col">Título</th>
+      <th scope="col">Descrição</th>
+      <th scope="col">Imagem</th>
+      <th scope="col">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for disciplina in disciplinas %}
+    <tr>
+
+
+      <td>{{ disciplina.id }}</td>
+
+      <td>{{ disciplina.nome }}</td>
+
+
+      <td>{{ disciplina.professor }}</td>
+
+      <td>{{ contato.titulo }}</td>
+
+      <td>{{ contato.descricao }}</td>
+
+      {% if disciplina.imagem %}
+      <td><img width="50px" height="50px" src="{{ disciplina.imagem.url  }}"></td>
+      {%else%}
+      <td></td>
+      {% endif %}
+
+
+      <td>
+        <a class="btn btn-info" href="{% url 'professor:editarDisciplina' disciplina.id %}">Editar</a>
+        <a class="btn btn-primary"  href="#">Remover</a>
+      </td>
+
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
