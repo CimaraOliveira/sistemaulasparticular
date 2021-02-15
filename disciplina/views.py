@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views import View
@@ -5,15 +6,13 @@ from django.contrib.auth.models import User
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import CreateView
-#from .models import FormReserva
 from django.contrib import messages
+from django.contrib import messages, auth
 from django.shortcuts import render, redirect, reverse
-from django.contrib.auth.decorators import login_required
 
 
 
 from .models import Disciplina
-from django.contrib.auth import authenticate, login
 import copy
 
 from . import models
@@ -33,12 +32,17 @@ class DetalhesDisciplina(DetailView):
 def professor(request):
     return render(request, 'disciplina/professor.html')
 
-#@login_required(redirect_field_name='login')
+#@login_required(redirect_field_name='user:login')
 def listar(request):
     disciplinas = Disciplina.objects.all()
     context = {
         'disciplinas': disciplinas
     }
     return render(request, 'disciplina/listar.html', context)
+
+@login_required()
+def logout(request):
+    auth.logout(request)
+    return redirect('user:index')
 
 

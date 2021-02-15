@@ -4,9 +4,7 @@ from django.contrib import messages, auth
 from django.core.validators import validate_email
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
-
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
+from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, TemplateView, DetailView, RedirectView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from disciplina.models import Disciplina
@@ -105,24 +103,8 @@ def login(request):
     messages.error(request, 'Usuário ou Senha Inválidos!')
     return redirect('user:login')
 
-    """TIPOS_USUARIOS = request.POST.get('TIPOS_USUARIOS')
-    if user is not None:
-        if user.is_active:
-            if TIPOS_USUARIOS.Aluno:
-                    messages.success(request, 'Login efetuado com Sucesso!')
-                    return redirect('disciplina:home')
-            if TIPOS_USUARIOS.Professor:
-                    messages.success(request, 'Login efetuado com Sucesso!')
-                    return redirect('user:homeusuario')
 
-                #return redirect('disciplina:home')
-
-    messages.error(request, 'Usuário ou Senha Inválidos!')
-    return redirect('user:login')"""
-
-
-def user_logout(request):
-    auth.logout(request)
-    return redirect('disciplina:listar')
+def index(request):
+    return redirect(request,'user:login')
 
 

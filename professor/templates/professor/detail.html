@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {%block conteudo%}
+
+ <!--{% if  request.user.is_authenticated %}-->
 <table class="table">
   <thead>
     <tr>
@@ -44,5 +46,6 @@
   {% endfor %}
   </tbody>
 </table>
+<!--{% endif %}-->
 
 {% endblock %}

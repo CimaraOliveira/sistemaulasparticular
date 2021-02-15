@@ -73,7 +73,7 @@ class Usuario(models.Model):
 
 
 class Disciplina(models.Model):
-    usuarios = models.ManyToManyField(Usuario)
+    #usuarios = models.ManyToManyField(Usuario)
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
     nome = models.CharField('Nome', max_length=50)
     titulo = models.TextField('Título', max_length=25)
@@ -127,6 +127,12 @@ class Disciplina(models.Model):
 class UsuarioDisciplina(models.Model):
     usuario = models.ForeignKey(Usuario,on_delete=models.CASCADE, related_name="linguagem")
     disciplina = models.ForeignKey(Disciplina,on_delete=models.CASCADE, related_name="linguagem")
+    STATUS_CHOICES=(
+        (0, 'Pendente'),
+        (1, 'Aprovado'),
+        (2, 'Cancelado')
+    )
+    status = models.IntegerField('Situação', choices=STATUS_CHOICES,default=0,blank=True)
 
 
 
