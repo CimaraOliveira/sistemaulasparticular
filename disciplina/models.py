@@ -4,6 +4,7 @@ from django.contrib.auth.models import User, UserManager
 import os
 from PIL import Image
 from django.utils.text import slugify
+
 from django.db.models import Q
 from django.urls import reverse
 from django import forms
@@ -29,8 +30,50 @@ class Professor(models.Model):
     def __str__(self):
         return self.nome
 
+
+
+class Usuario(models.Model):
+   #disciplina = models.ForeignKey(Disciplina)
+    is_active = models.BooleanField('Ativo', default=False)
+    slug = models.SlugField('Atalho', max_length=200, null=True, blank=True)
+    nome = models.CharField('Nome',max_length=30)
+    sobrenome = models.CharField('Sobrenome',max_length=30, blank=True)
+    email = models.CharField('E-mail',max_length=30, blank=True)
+    telefone = models.CharField('Telefone',max_length=20)
+
+
+    class Meta:
+        verbose_name = ('Usuário')
+        verbose_name_plural = ('Usuários')
+
+    def has_module_perms(self, app_label):
+        return True
+
+    def has_perm(self, perm, obj=None):
+        return True
+
+    def get_short_name(self):
+        return self.nome[0:15].strip()
+
+    def get_full_name(self):
+        return self.nome
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            slug = f'{slugify(self.nome)}'
+            self.slug = slug
+
+        super().save(*args, **kwargs)
+
+        def get_id(self):
+            return self.id
+
+
+
+
+
 class Disciplina(models.Model):
-    # usuario = models.ManyToManyField('Usuario',Usuario)
+    usuarios = models.ManyToManyField(Usuario)
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
     nome = models.CharField('Nome', max_length=50)
     titulo = models.TextField('Título', max_length=25)
@@ -81,70 +124,21 @@ class Disciplina(models.Model):
         return self.nome or self.professor
 
 
-
-class Usuario(models.Model):
-    TIPOS_USUARIOS = (
-        ('ADM', 'adm'),
-        ('PROFESSOR', 'Professor'),
-        ('ALUNO', 'Aluno')
-    )
-
-    USERNAME_FIELD = 'email'
-    #usuario = models.OneToOneField(User, on_delete=models.CASCADE,related_name='inscricao')
-    tipo = models.CharField('Tipo do usuario', max_length=15,choices=TIPOS_USUARIOS, default='ALUNO')
-    is_active = models.BooleanField('Ativo', default=False)
-    slug = models.SlugField('Atalho', max_length=200, null=True, blank=True)
-    nome = models.CharField('Nome',max_length=30)
-    sobrenome = models.CharField('Sobrenome',max_length=30, blank=True)
-    email = models.CharField('E-mail',max_length=30, blank=True)
-    telefone = models.CharField('Telefone',max_length=20)
-    disciplina = models.ManyToManyField(Disciplina, verbose_name='Disciplina',null=True, blank=True)
-
-    class Meta:
-        verbose_name = ('Usuário')
-        verbose_name_plural = ('Usuários')
-
-    def has_module_perms(self, app_label):
-        return True
-
-    def has_perm(self, perm, obj=None):
-        return True
-
-    def get_short_name(self):
-        return self.nome[0:15].strip()
-
-    def get_full_name(self):
-        return self.nome
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            slug = f'{slugify(self.nome)}'
-            self.slug = slug
-
-        super().save(*args, **kwargs)
-
-        def get_id(self):
-            return self.id
-
-        @property
-        def is_staff(self):
-            if self.tipo == 'ADM':
-                return True
-            return False
-
-        @property
-        def get_delete_url(self):
-            return reverse('usuario_delete', args=[str(self.id)])
-
-        @property
-        def get_usuario_register_activate_url(self):
-            return '%s%s' % (settings.DOMINIO_URL, reverse('usuario_register_activate', kwargs={'slug': self.slug}))
+class UsuarioDisciplina(models.Model):
+    usuario = models.ForeignKey(Usuario,on_delete=models.CASCADE, related_name="linguagem")
+    disciplina = models.ForeignKey(Disciplina,on_delete=models.CASCADE, related_name="linguagem")
 
 
-class Reserva(models.Model):
+
+
+
+
+
+
+"""class Reserva(models.Model):
     #usuario = models.ManyToManyField(User)
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE,related_name='inscricao')
-    disciplina = models.OneToOneField(Disciplina, on_delete=models.CASCADE,related_name='inscricao')
+    usuario = models.ManyToManyField(User)
+    disciplina = models.ManyToManyField(Disciplina)
     STATUS_CHOICE = (
         (0, 'Pendente'),
         (1, 'Aprovdo'),
@@ -165,4 +159,4 @@ class Reserva(models.Model):
 class FormReserva(forms.ModelForm):
     class Meta:
         model = Reserva
-        exclude = ()
+        exclude = ()"""

@@ -37,7 +37,7 @@
 
       <td>
         <a class="btn btn-info" href="{% url 'professor:editarDisciplina' disciplina.id %}">Editar</a>
-        <a class="btn btn-primary"  href="#">Remover</a>
+        <a class="btn btn-primary"  href="{% url 'professor:removerDisciplina' disciplina.id %}">Remover</a>
       </td>
 
     </tr>

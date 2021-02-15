@@ -5,16 +5,14 @@ from django.contrib.auth.models import User
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import CreateView
-from .models import FormReserva
+#from .models import FormReserva
 from django.contrib import messages
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
 
 
 
-from .models import Disciplina,Reserva
-#from .functions import getNr_Disciplina
-
+from .models import Disciplina
 from django.contrib.auth import authenticate, login
 import copy
 
@@ -31,22 +29,6 @@ class DetalhesDisciplina(DetailView):
     template_name = 'disciplina/detail.html'
     context_object_name = 'disciplina'
     slug_url_kwarg = 'slug'
-
-
-class CreateReserva(CreateView):
-    model = Reserva
-    fields = '__all__'
-    template_name = 'disciplina/reservarDisciplina.html'
-
-
-
-def reservarDisciplina(request, slug):
-
-   reserva = Disciplina.objects.get(slug=slug)
-
-   #disciplina = Disciplina.objects.filter(slug=slug)
-   return render(request,'disciplina/reservarDisciplina.html')
-
 
 def professor(request):
     return render(request, 'disciplina/professor.html')
