@@ -8,7 +8,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('disciplina.urls')),
     path('user/', include('user.urls')),
-    #path('login/',include('django.contrib.auth.urls'),name='listar'),
+    path('/', include('django.contrib.auth.urls')),
+
+                  #path('login/',include('django.contrib.auth.urls'),name='listar'),
     path('professor/', include('professor.urls')),
     path('disciplina/', include('disciplina.urls')),
 

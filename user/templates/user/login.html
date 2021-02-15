@@ -39,7 +39,7 @@
 
             <div class="card-body">
 
-                   {% if not request.user.is_authenticated %}
+                   <!--{% if not  request.user.is_authenticated %}-->
 
                   <form method="POST" action="{% url 'user:login' %}">
                       {% csrf_token %}
@@ -57,14 +57,8 @@
                           Entrar
                       </button>
                 </form>
-                {% else %}
-                <p>
-                    Você fez login com {{user}},
-                    <a href="{% url 'user:user_logout' %}">Clique Aqui para Sair</a>
-                </p>
+               <!-- {% endif %}-->
 
-
-                {% endif%}
                 <div class="text">
                     <center>
                         <a style="color:blue" class="d-block small mt-2" href="{% url 'user:criar'%}">Cadastre-se</a>

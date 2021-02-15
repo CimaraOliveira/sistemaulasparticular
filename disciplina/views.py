@@ -29,6 +29,7 @@ class DetalhesDisciplina(DetailView):
     context_object_name = 'disciplina'
     slug_url_kwarg = 'slug'
 
+@login_required()
 def professor(request):
     return render(request, 'disciplina/professor.html')
 
@@ -40,7 +41,7 @@ def listar(request):
     }
     return render(request, 'disciplina/listar.html', context)
 
-@login_required()
+#@login_required()
 def logout(request):
     auth.logout(request)
     return redirect('user:index')

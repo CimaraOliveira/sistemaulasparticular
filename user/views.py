@@ -7,7 +7,8 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, TemplateView, DetailView, RedirectView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from disciplina.models import Disciplina
+from disciplina.models import Disciplina,Usuario
+from .models import FormUsuDisc,  FormDadosUsu
 
 
 #@login_required(redirect_field_name='login')
@@ -105,6 +106,36 @@ def login(request):
 
 
 def index(request):
-    return redirect(request,'user:login')
+    pass
+    #return redirect(request,'user:login')"""
+
+def reservarDisciplina(request):
+    form = FormUsuDisc(request.POST, request.FILES)
+    if form.is_valid():
+        form.save()
+        return redirect('user:reservarDisciplina')
+    else:
+        form = FormUsuDisc(request.POST, request.FILES)
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'user/reservarDisciplina.html', context)
+
+def editarUsuario(request):
+    data = {}
+    usuario = Usuario.objects.get(id=id)
+    form = FormDadosUsu(request.POST or None, instance=usuario)
+
+    if form.is_valid():
+        form.save()
+        return redirect('user:editarUsuario')
+
+    data['form'] = form
+    data['disciplina'] = usuario
+
+    return render(request, 'user/editarUsuario.html', data)
+
 
 

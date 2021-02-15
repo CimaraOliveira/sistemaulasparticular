@@ -29,7 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_REDIRECT_URL ='login/'
 
 
 # Application definition
@@ -148,4 +147,7 @@ MESSAGE_TAGS ={
     constants.SUCCESS: 'alert-success',
     constants.WARNING: 'alert-warning',
 }
+
+LOGIN_REDIRECT_URL ='/'
+LOGOUT__REDIRECT_URL='/login'
 
