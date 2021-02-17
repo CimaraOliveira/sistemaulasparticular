@@ -39,9 +39,8 @@
 
             <div class="card-body">
 
-                   <!--{% if not  request.user.is_authenticated %}-->
-
-                  <form method="POST" action="{% url 'user:login' %}">
+                {% if  request.user.is_authenticated %}
+                  <form method="POST" action="{% url 'user:login' %}" >
                       {% csrf_token %}
 
                       <div class="form-group">
@@ -57,7 +56,8 @@
                           Entrar
                       </button>
                 </form>
-               <!-- {% endif %}-->
+                    {%endif%}
+
 
                 <div class="text">
                     <center>

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{%block conteudo%}
+
+ <!--{% if  request.user.is_authenticated %}-->
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Sobrenome</th>
+      <th scope="col">Email</th>
+      <th scope="col">Senha</th>
+      <th scope="col">Telefone</th>
+     <!-- <th scope="col">Imagem</th>-->
+      <th scope="col">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+
+
+      <td>{{ user.nome }}</td>
+
+      <td>{{ user.email }}</td>
+
+
+      <td>{{ user.senha }}</td>
+
+      <td>{{ user.telefone }}</td>
+
+      <td>
+        <a class="btn btn-info" href="{% url 'professor:editarDisciplina' disciplina.id %}">Editar</a>
+      </td>
+
+    </tr>
+  </tbody>
+</table>
+<!--{% endif %}-->
+
+{% endblock %}

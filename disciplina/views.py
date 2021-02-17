@@ -9,13 +9,11 @@ from django.views.generic import CreateView
 from django.contrib import messages
 from django.contrib import messages, auth
 from django.shortcuts import render, redirect, reverse
-
-
-
-from .models import Disciplina
+from .models import Disciplina,UsuarioDisciplina
 import copy
-
+from .functions import getNrDisciplina
 from . import models
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 """class Home(ListView):
     model = models.Disciplina
@@ -25,7 +23,7 @@ from . import models
 
 class DetalhesDisciplina(DetailView):
     model = models.Disciplina
-    template_name = 'disciplina/detail.html'
+    template_name = 'disciplina/detalhesDisciplina.html'
     context_object_name = 'disciplina'
     slug_url_kwarg = 'slug'
 
@@ -33,7 +31,7 @@ class DetalhesDisciplina(DetailView):
 def professor(request):
     return render(request, 'disciplina/professor.html')
 
-#@login_required(redirect_field_name='user:login')
+#@login_required()
 def listar(request):
     disciplinas = Disciplina.objects.all()
     context = {
@@ -41,9 +39,15 @@ def listar(request):
     }
     return render(request, 'disciplina/listar.html', context)
 
-#@login_required()
-def logout(request):
-    auth.logout(request)
-    return redirect('user:index')
+def home(request):
+    disciplinas = Disciplina.objects.all()
+    context = {
+        'disciplinas': disciplinas
+    }
+    return render(request, 'disciplina/home.html', context)
 
 
+
+def reservarDisciplina(request, slug):
+    disciplina = Disciplina.objects.get(slug=slug)
+    return render(request, 'disciplina/reservarDisciplina.html')

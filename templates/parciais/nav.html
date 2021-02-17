@@ -21,10 +21,8 @@
             <a class="nav-link" href="#">Professores</a>
           </li>
           {% endif %}-->
-
-
+          {% if request.user_choice == 'p'%}
             <li>
-            {% if user.is_autenticated %}
             <div class="dropdown show">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -32,6 +30,7 @@
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+
                     <a class="dropdown-item" href="#">Minhas Disciplinas</a>
                     <a class="dropdown-item" href="#">Dados Pessoais</a>
                     <a class="dropdown-item" href="#">Something else here</a>
@@ -39,23 +38,25 @@
             </div>
             </li>
 
-            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'user:user_logout' %}">Sair</a>
+            </li>
+          {% endif %}
 
+           {% if request.user_choice == 'a'%}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'user:login' %}">Login</a>
             </li>
+            {% endif%}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'user:criar' %}">Cadastre-se</a>
             </li>
-            {% endif %}
+
              <li class="nav-item">
                 <a class="nav-link" href="#">Sobre</a>
             </li>
-             {% if user.is_autenticated %}
-             <li class="nav-item">
-            <a class="nav-link" href="{% url 'disciplina:logout' %}">Sair</a>
-            </li>
-            {% endif %}
+
+
         </ul>
       </div>
     </div>

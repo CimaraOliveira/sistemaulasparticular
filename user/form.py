@@ -12,3 +12,4 @@ class AlterDadoUsuForm(ModelForm):
         model = Usuario
         fields = '__all__'
 
+

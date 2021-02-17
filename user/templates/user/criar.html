@@ -50,7 +50,19 @@
         <input type="text" name="usuario" value="{{request.POST.usuario}}" class="form-control">
       </div>
 
-      <div class="form-group">
+        <div>
+            <label class="required" for="id_user_choice">Tipo de usuário:</label>
+            <select name="user_choice" required="" id="id_user_choice">
+                <option value="" selected="">---------</option>
+                <option value="a">Adm</option>
+                <option value="p">Professor</option>
+                <option value="a">Aluno</option>
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
         <label>Senha</label>
         <input type="password" name="senha" class="form-control">
       </div>

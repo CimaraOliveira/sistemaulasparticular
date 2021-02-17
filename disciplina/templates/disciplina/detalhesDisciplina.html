@@ -3,7 +3,11 @@
 {% block conteudo %}
 <!-- <form action="{% url 'disciplina:reservarDisciplina' disciplina.slug %}" method="POST" enctype="multipart/form-data" >
  -->
+
 <form action="{% url 'disciplina:reservarDisciplina' disciplina.slug %}" method="POST" enctype="multipart/form-data" >
+
+<!-- <form action="{% url 'user:reservarDisciplina' %}" method="POST" enctype="multipart/form-data" >
+  -->
     {% csrf_token %}
 <div class="row">
     <div class="col-lg">
@@ -44,13 +48,14 @@
     </div>
 </div>
 </div>       <br>
-
+             {% if not request.usuario.is_authenticated %}
              <div class="text-left">
                 <button type="submit" class="btn btn-primary btn-lg btn-block">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     Inscrever-se
                 </button>
             </div>
+            {% endif %}
 </form>
 
 {% endblock %}
