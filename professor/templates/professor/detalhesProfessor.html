@@ -9,6 +9,7 @@
       <th scope="col">#</th>
       <th scope="col">Nome</th>
       <th scope="col">Descricao</th>
+      <th scope="col">Formação</th>
       <th scope="col">Imagem</th>
       <th scope="col">Ações</th>
     </tr>
@@ -17,6 +18,7 @@
   {% for professor in professores %}
     <tr>
 
+       <td>{{ professor.id}}</td>
 
       <td>{{ professor.nome}}</td>
 
@@ -34,7 +36,7 @@
 
 
       <td>
-        <a class="btn btn-info" href="#">Editar</a>
+        <a class="btn btn-info" href="{% url 'professor:editarProfessor' professor.id %}">Editar</a>
         <a class="btn btn-primary"  href="#">Remover</a>
       </td>
 

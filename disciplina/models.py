@@ -15,7 +15,7 @@ from django.utils import timezone
 class Professor(models.Model):
 
     nome = models.CharField(max_length=50)
-    descricao_curta = models.TextField(max_length=255)
+    descricao_curta = models.TextField('Descrição',max_length=255)
     descricao_longa = models.TextField()
     imagem = models.ImageField(upload_to='disciplina_imagens/%Y/%m/', blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True, null=True)

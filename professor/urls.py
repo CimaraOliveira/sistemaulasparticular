@@ -10,6 +10,8 @@ urlpatterns = [
    path('removerDisciplina/<int:id>', views.removerDisciplina, name='removerDisciplina'),
    path('cadastroProfessor/', views.cadastroProfessor, name='cadastroProfessor'),
    path('detalhesProfessor/', views.detalhesProfessor, name='detalhesProfessor'),
+   path('editarProfessor/<int:id>', views.editarProfessor, name='editarProfessor'),
+
 
 
 
