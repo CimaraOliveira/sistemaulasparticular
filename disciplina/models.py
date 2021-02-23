@@ -40,7 +40,6 @@ class Usuario(models.Model):
     email = models.CharField('E-mail', max_length=30, blank=True)
     telefone = models.CharField('Telefone', max_length=20)
 
-
     aluno = models.BooleanField("aluno", null=True, blank=True)
     professor = models.BooleanField("professor", null=True, blank=True)
 
@@ -71,7 +70,7 @@ class Disciplina(models.Model):
     descricao_longa = models.TextField('Descrição')
     imagem = models.ImageField(upload_to='disciplina_imagens/%Y/%m/', blank=True, null=True)
     slug = models.SlugField('Atalho', unique=True, blank=True, null=True)
-    data_inicio = models.DateField('Data Início', null=True, blank=True)
+    data_inicio = models.DateField('Data Cadastro', null=True, blank=True)
 
     # data_reserva = models.DateTimeField('Data Início',default=timezone.now)
 

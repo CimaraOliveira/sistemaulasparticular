@@ -15,16 +15,6 @@ class AlterDadoUsuForm(ModelForm):
         fields = '__all__'
 
 
-class UserForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('username,', 'last_name', 'first_name', 'email')
-
-    def clean(self, *args, **kwargs):
-        data = self.data
-        cleaned = self.cleaned_data
-
-        print()
 
 
 

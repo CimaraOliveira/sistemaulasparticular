@@ -22,7 +22,7 @@
           </li>
           {% endif %}-->
          {% if request.user.is_authenticated %}
-            {% if not user.aluno %}
+            <!--{% if not user.aluno %}-->
          <li>
             <div class="dropdown show">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -32,14 +32,14 @@
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
-                    <a class="dropdown-item" href="#">Minhas Disciplinas</a>
-                    <a class="dropdown-item" href="{% url 'user:editarUsuario' %}">Dados Pessoais</a>
+                    <a class="dropdown-item" href="{#}">Minhas Disciplinas</a>
+                    <a class="dropdown-item" href="{% url 'user:editarUsuario' user.id %}">Dados Pessoais</a>
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
             </div>
             </li>
-            {% endif %}
-            {% if user.professor %}
+            <!--{% endif %}
+            {% if user.professor %}-->
             <li>
             <div class="dropdown show">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenu"
@@ -55,7 +55,7 @@
                 </div>
             </div>
             </li>
-            {% endif %}
+            <!--{% endif %}-->
             <li class="nav-item">
                 <a class="nav-link" href="#">Sobre</a>
             </li>

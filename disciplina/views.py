@@ -9,13 +9,8 @@ from django.views.generic import CreateView
 from django.contrib import messages
 from django.contrib import messages, auth
 from django.shortcuts import render, redirect, reverse
-
-
 from .models import Disciplina,UsuarioDisciplina
-import copy
-from .functions import getNrDisciplina
 from . import models
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 

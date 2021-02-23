@@ -12,5 +12,5 @@ class FormUsuDisc(forms.ModelForm):
 class FormDadosUsu(forms.ModelForm):
     class Meta:
         model = Usuario
-        exclude = ()
+        exclude = ('usuario','is_active','slug','aluno','professor',)
 

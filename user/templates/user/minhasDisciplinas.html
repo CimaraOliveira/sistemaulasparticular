@@ -1,1 +1,32 @@
-<h1>minhasDisciplinas</h1>
+{% extends 'base.html' %}
+
+{%block conteudo %}
+
+<div class="row">
+    <div class="col-lg-12" >
+        <div class="card-columns">
+
+            {% for disciplina in disciplinas %}
+            <div class="card" style="width: 18rem;">
+
+                {% if disciplina.imagem %}
+                <a href="{{ disciplina.slug }}">
+                <img class="card-img-top" src="{{ disciplina.imagem.url  }}" alt="{{ disciplina.nome }}"
+                style="max-width: 350px; height: auto">
+                </a>
+                {% endif %}
+
+                <div class="card-body">
+                     <a href="{{ disciplina.slug }}">
+                         <h5 class="card-title">{{ usuariodisciplina.status }}</h5></a>
+                    <p class="card-text">{{ disciplina.data_reserva }}</p>
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

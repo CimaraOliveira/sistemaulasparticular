@@ -3,9 +3,10 @@
 
 {% block conteudo %}
 
+<h1>Adicionar Disciplina</h1>
+
 {% include 'parciais/_messages.html' %}
 
-<h1>Adicionar Disciplina</h1>
 
 <div class="container">
      <form method="POST" action="{% url 'professor:detail' %}" enctype="multipart/form-data">

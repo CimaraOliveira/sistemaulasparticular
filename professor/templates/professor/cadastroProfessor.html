@@ -3,18 +3,21 @@
 
 {% block conteudo %}
 
-<h1>Meus Dados</h1>
+<h1>Adicionar Professor</h1>
 
 {% include 'parciais/_messages.html' %}
+
+
 <div class="container">
-     <form method="POST" action="{% url 'user:editarUsuario' user.id %}" enctype="multipart/form-data">
+     <form method="POST" action="{% url 'professor:detalhesProfessor' %}" enctype="multipart/form-data">
          {% csrf_token %}
+
          <table class="table">
               {{ form }}
          </table>
          <div class="row">
                 <div class="col">
-                    <button type="submit" class="btn btn-success">Alterar</button>
+                    <button type="submit" class="btn btn-success">Adicionar</button>
                     <button type="submit" class="btn btn-danger">Cancelar</button>
                 </div>
 

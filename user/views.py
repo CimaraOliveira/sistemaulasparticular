@@ -5,13 +5,15 @@ from django.core.validators import validate_email
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.contrib.auth import login as ts_login
+from setuptools.extension import Library
+
 from .models import Usuario
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, TemplateView, DetailView, RedirectView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from sqlparse.sql import For
 
-from disciplina.models import Disciplina,Usuario
+from disciplina.models import Disciplina,Usuario, UsuarioDisciplina
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import FormDadosUsu
 
@@ -139,26 +141,24 @@ def reservarDisciplina(request):
 
 
 
-def editarUsuario(request):
+def editarUsuario(request,id):
 
-    if request.user.is_authenticated:
-       id = request.user
-       usuario = Usuario.objects.all()
-       profile = Usuario.objects.get(usuario=usuario)
+      data = {}
+      usuario = Usuario.objects.get(id=id)
+      form = FormDadosUsu(request.POST or None, instance=usuario)
 
-    else:
-        usuario = ""
-        profile = ""
+      if form.is_valid():
+        form.save()
+        return redirect('user:editarUsuario')
 
-    context = {
-            'usuario' :"usuario",
-            'profile' : "profile"
-        }
+      data['form'] = form
+      data['usuario'] = usuario
 
-    return render(request, 'user/editarUsuario.html', context)
+      return render(request, 'user/editarUsuario.html', data)
 
-def detalhesUsuario(request,pk):
-   form = get_object_or_404(Usuario, pk=id)
+
+"""def detalhesUsuario(request,id):
+   form = get_object_or_404(Usuario, id=id)
    if request.method == 'POST':
        form = FormDadosUsu(request.POST, instance=form)
        if form.is_valid():
@@ -168,7 +168,7 @@ def detalhesUsuario(request,pk):
            messages.error(request, 'Erro')
 
        form = Usuario(isinstance=form)
-       return render(request, 'user/detalhesUsuario.html', {'form':form})
+   return render(request, 'user/detalhesUsuario.html', {'form':form})"""
 
 
 #@login_required()
@@ -179,29 +179,20 @@ def user_logout(request):
 def alterarSenha(request):
     pass
 
-def minhasDisciplinas(request):
-    username = request.user.username
+#def minhasDisciplinas(request):
+    """username = request.user.username
     disciplinas = Usuario.objects.filter(id=id)
     context ={
         'disciplinas' : disciplinas
     }
     return render(request, 'user/minhasDisciplinas.html', context)
+"""
+
+class ListaDiscUsu(DetailView):
+    model = UsuarioDisciplina
+    template_name = 'user/minhasDisciplinas.html'
+    context_object_name = 'disciplina'
+    slug_url_kwarg = 'slug'
 
 
-class AdicionarDisciplina(View):
-    def get(self, *args, **kwargs):
-       http_referer = self.request.META.get(
-           'HTTP_REFERER',
-           reverse('disciplina.listar')
-       )
-       disciplina = self.request.GET.get('data')
-
-       if not disciplina:
-           messages.error(
-               self.request,
-               'Não Exite'
-           )
-           return redirect(http_referer)
-
-       return HttpResponse('Adicionar Disciplina')
 
