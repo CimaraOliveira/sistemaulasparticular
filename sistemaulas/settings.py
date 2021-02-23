@@ -148,6 +148,6 @@ MESSAGE_TAGS ={
     constants.WARNING: 'alert-warning',
 }
 
-LOGIN_REDIRECT_URL ='/'
+LOGIN_REDIRECT_URL ='/listar'
 LOGOUT__REDIRECT_URL='/'
 

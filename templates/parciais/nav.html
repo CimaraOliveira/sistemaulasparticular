@@ -21,8 +21,9 @@
             <a class="nav-link" href="#">Professores</a>
           </li>
           {% endif %}-->
-          {% if request.user_choice == 'p'%}
-            <li>
+         {% if request.user.is_authenticated %}
+            {% if not user.aluno %}
+         <li>
             <div class="dropdown show">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -32,30 +33,45 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
                     <a class="dropdown-item" href="#">Minhas Disciplinas</a>
+                    <a class="dropdown-item" href="{% url 'user:editarUsuario' %}">Dados Pessoais</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+            </li>
+            {% endif %}
+            {% if user.professor %}
+            <li>
+            <div class="dropdown show">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenu"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Meus
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+
+                    <a class="dropdown-item" href="{% url 'professor:detail' %}">Minhas Disciplinas</a>
                     <a class="dropdown-item" href="#">Dados Pessoais</a>
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
             </div>
             </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">Sobre</a>
+            </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'user:user_logout' %}">Sair</a>
             </li>
-          {% endif %}
-
-           {% if request.user_choice == 'a'%}
+          {% else %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'user:login' %}">Login</a>
             </li>
-            {% endif%}
+
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'user:criar' %}">Cadastre-se</a>
             </li>
-
-             <li class="nav-item">
-                <a class="nav-link" href="#">Sobre</a>
-            </li>
-
+           {% endif %}
 
         </ul>
       </div>

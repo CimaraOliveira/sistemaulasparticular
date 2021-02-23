@@ -1,8 +1,7 @@
 from django.forms import ModelForm
-from .models import Reserva
-
+from .models import UsuarioDisciplina
 class ResevarDiscForm(ModelForm):
     class Meta:
-        model = Reserva
+        model = UsuarioDisciplina
         fields = '__all__'
-        #exclude = ('slug',)
+        exclude = ('usuario','status')

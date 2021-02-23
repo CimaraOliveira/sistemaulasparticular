@@ -1,14 +1,7 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
-<!-- <form action="{% url 'disciplina:reservarDisciplina' disciplina.slug %}" method="POST" enctype="multipart/form-data" >
- -->
 
-<form action="{% url 'disciplina:reservarDisciplina' disciplina.slug %}" method="POST" enctype="multipart/form-data" >
-
-<!-- <form action="{% url 'user:reservarDisciplina' %}" method="POST" enctype="multipart/form-data" >
-  -->
-    {% csrf_token %}
 <div class="row">
     <div class="col-lg">
         <div class="row no-gutters">
@@ -19,43 +12,19 @@
             </div>
         </div>
     </div>
-
-
 <div class="col-lg">
     <div class="mt-4 mt-lg-0">
         <h1 class="h2">{{disciplina.nome}}</h1>
         <p class="lead">{{disciplina.descricao_longa | linebreaks}}</p>
-        <h1 class="lead">
+        <h1 class="lead"> Professor:
             {{disciplina.professor}}
         </h1>
 
-        <!--<form action="{% url 'disciplina:reservarDisciplina' disciplina.slug %}" method="POST" enctype="multipart/form-data">
-        <div class="col-md-6 form-group">
-            <label for="data_reserva">Data Inscrição</label>
-            <input type="date" class="form-control" id="dateBirth"
-                   name="data_reserva"
-                   value="{{ disciplina.data_reserva }}"
-                   placeholder="Data de Reserva">
-        </div>
 
-            <div class="text-left">
-                <button type="submit" class="btn btn-primary btn-lg btn-block">
-                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    Inscrever-se
-                </button>
-            </div>
-        </form>-->
     </div>
+    <!--<button type="submit"  class="btn btn-primary">Inscrever-se</button>-->
+    <a href="{% url 'disciplina:reservarDisciplina' disciplina.slug %}" class="btn btn-primary">Inscreva-se</a>
 </div>
-</div>       <br>
-             {% if not request.usuario.is_authenticated %}
-             <div class="text-left">
-                <button type="submit" class="btn btn-primary btn-lg btn-block">
-                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    Inscrever-se
-                </button>
-            </div>
-            {% endif %}
-</form>
+</div>
 
 {% endblock %}

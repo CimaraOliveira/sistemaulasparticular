@@ -13,6 +13,7 @@ from django.utils import timezone
 
 
 class Professor(models.Model):
+
     nome = models.CharField(max_length=50)
     descricao_curta = models.TextField(max_length=255)
     descricao_longa = models.TextField()
@@ -31,8 +32,7 @@ class Professor(models.Model):
 
 
 class Usuario(models.Model):
-    # disciplina = models.ForeignKey(Disciplina)
-    usuario = models.CharField('User', max_length=30)
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Usuário')
     is_active = models.BooleanField('Ativo', default=False)
     slug = models.SlugField('Atalho', max_length=200, null=True, blank=True)
     nome = models.CharField('Nome', max_length=30)
@@ -40,12 +40,11 @@ class Usuario(models.Model):
     email = models.CharField('E-mail', max_length=30, blank=True)
     telefone = models.CharField('Telefone', max_length=20)
 
-    USER_CHOICES = (
-        ("m", "Adm"),
-        ("p", "Professor"),
-        ("a", "Aluno")
-    )
-    user_choice = models.CharField(max_length=1, choices=USER_CHOICES, blank=False, null=False)
+
+    aluno = models.BooleanField("aluno", null=True, blank=True)
+    professor = models.BooleanField("professor", null=True, blank=True)
+
+
 
 
 class Meta:
@@ -117,7 +116,7 @@ class Disciplina(models.Model):
 
 
 class UsuarioDisciplina(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="linguagem")
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name="linguagem")
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE, related_name="linguagem")
     STATUS_CHOICES = (
         (0, 'Pendente'),
@@ -126,3 +125,13 @@ class UsuarioDisciplina(models.Model):
     )
     status = models.IntegerField('Situação', choices=STATUS_CHOICES, default=0, blank=True)
     data_reserva = models.DateField('Data Reserva', null=True, blank=True)
+
+    def active(self):
+        self.status = 1
+        self.save()
+
+
+    class Meta:
+        verbose_name = 'Inscrição'
+        verbose_name_plural = 'Inscrições'
+

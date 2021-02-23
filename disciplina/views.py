@@ -9,11 +9,15 @@ from django.views.generic import CreateView
 from django.contrib import messages
 from django.contrib import messages, auth
 from django.shortcuts import render, redirect, reverse
+
+
 from .models import Disciplina,UsuarioDisciplina
 import copy
 from .functions import getNrDisciplina
 from . import models
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+
 
 """class Home(ListView):
     model = models.Disciplina
@@ -46,8 +50,17 @@ def home(request):
     }
     return render(request, 'disciplina/home.html', context)
 
-
-
+#@login_required(login_url='user:login')
 def reservarDisciplina(request, slug):
-    disciplina = Disciplina.objects.get(slug=slug)
-    return render(request, 'disciplina/reservarDisciplina.html')
+    """if not request.user.is_authenticated():
+        return redirect('user:login')"""
+    disciplina = get_object_or_404(Disciplina, slug = slug)
+    usuarioDisciplina, created = UsuarioDisciplina.objects.get_or_create(usuario=request.user,disciplina=disciplina)
+
+    if created:
+         usuarioDisciplina.active()
+         messages.info(request, 'Você já está inscrito nessa Disciplina!')
+
+    messages.success(request, 'Sua solicitação vai ser analisada!')
+    return redirect('disciplina:listar')
+
