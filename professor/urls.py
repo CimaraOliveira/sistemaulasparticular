@@ -11,6 +11,12 @@ urlpatterns = [
    path('cadastroProfessor/', views.cadastroProfessor, name='cadastroProfessor'),
    path('detalhesProfessor/', views.detalhesProfessor, name='detalhesProfessor'),
    path('editarProfessor/<int:id>', views.editarProfessor, name='editarProfessor'),
+   path('listarPedidosReserva/', views.listarPedidosReserva, name='listarPedidosReserva'),
+   path('alterarStatusReserva/<int:id>', views.alterarStatusReserva, name='alterarStatusReserva'),
+
+
+
+
 
 
 

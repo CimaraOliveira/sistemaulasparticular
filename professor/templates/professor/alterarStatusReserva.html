@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block conteudo %}
+
+<h1>Reservar Disciplina</h1>
+
+{% include 'parciais/_messages.html' %}
+<div class="container">
+     <form method="POST" action="#" enctype="multipart/form-data">
+         {% csrf_token %}
+
+         <table class="table">
+              {{ form }}
+         </table>
+         <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-success">Alterar</button>
+                    <button type="submit" class="btn btn-danger">Cancelar</button>
+                </div>
+
+            </div>
+      </form>
+</div>
+
+{% endblock%}

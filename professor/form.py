@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Disciplina, Professor
+from .models import Disciplina, Professor, UsuarioDisciplina
 
 class CadDiscForm(ModelForm):
     class Meta:
@@ -11,6 +11,11 @@ class CadDiscForm(ModelForm):
 class CadProfForm(ModelForm):
     class Meta:
         model = Professor
+        fields = '__all__'
+
+class ReservarDiscForm(ModelForm):
+    class Meta:
+        model = UsuarioDisciplina
         fields = '__all__'
 
 

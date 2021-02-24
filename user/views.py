@@ -197,7 +197,4 @@ def minhasDisciplinas(request):
     return render(request, 'user/minhasDisciplinas.html', context)
 
 
-def listarPedidosReserva(request):
- pass
-
 
