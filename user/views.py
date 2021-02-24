@@ -15,7 +15,7 @@ from sqlparse.sql import For
 
 from disciplina.models import Disciplina,Usuario, UsuarioDisciplina
 from django.http import HttpResponseRedirect, HttpResponse
-from .models import FormDadosUsu
+from .models import FormDadosUsu, FormUsuDisc
 
 
 from django.views import View
@@ -113,18 +113,25 @@ def login(request):
     user = auth.authenticate(request, username=usuario, password=senha)
 
     if user is not None:
-         messages.success(request, 'Login efetuado com Sucesso!')
-         return redirect('disciplina:listar')
+        if user.usuario.professor:
+            messages.success(request, 'Login efetuado com Sucesso!')
+            return redirect('professor:detail')
+
+        else:
+            messages.success(request, 'Login efetuado com Sucesso!')
+            return redirect('disciplina:listar')
 
 
 
+         #messages.success(request, 'Login efetuado com Sucesso!')
+            #return redirect('disciplina:listar')
     messages.error(request, 'Usuário ou Senha Inválidos!')
     return redirect('user:login')
     # return redirect('login')
 
 def index(request):
     return render(request,'user/index.html')
-"""
+
 def reservarDisciplina(request):
     form = FormUsuDisc(request.POST, request.FILES)
     if form.is_valid():
@@ -137,12 +144,11 @@ def reservarDisciplina(request):
         'form': form
     }
 
-    return render(request, 'user/reservarDisciplina.html', context)"""
+    return render(request, 'user/reservarDisciplina.html', context)
 
 
 
 def editarUsuario(request,id):
-
       data = {}
       usuario = Usuario.objects.get(id=id)
       form = FormDadosUsu(request.POST or None, instance=usuario)
@@ -179,20 +185,19 @@ def user_logout(request):
 def alterarSenha(request):
     pass
 
-#def minhasDisciplinas(request):
-    """username = request.user.username
-    disciplinas = Usuario.objects.filter(id=id)
+
+
+def minhasDisciplinas(request):
+
+    usuariodisciplinas = UsuarioDisciplina.objects.filter(usuario_id = request.user.id)
     context ={
-        'disciplinas' : disciplinas
+        'usuariodisciplinas' : usuariodisciplinas
     }
+    print(usuariodisciplinas)
     return render(request, 'user/minhasDisciplinas.html', context)
-"""
 
-class ListaDiscUsu(DetailView):
-    model = UsuarioDisciplina
-    template_name = 'user/minhasDisciplinas.html'
-    context_object_name = 'disciplina'
-    slug_url_kwarg = 'slug'
 
+def listarPedidosReserva(request):
+ pass
 
 

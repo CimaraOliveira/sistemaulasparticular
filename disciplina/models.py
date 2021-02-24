@@ -125,6 +125,10 @@ class UsuarioDisciplina(models.Model):
     status = models.IntegerField('Situação', choices=STATUS_CHOICES, default=0, blank=True)
     data_reserva = models.DateField('Data Reserva', null=True, blank=True)
 
+    #aceitarAgendamento = models.BooleanField("Aprovado", null=True, blank=True)
+    #agendamentoPendente = models.BooleanField("Aguardando", null=True, blank=True)
+
+
     def active(self):
         self.status = 1
         self.save()

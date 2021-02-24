@@ -30,7 +30,7 @@ class DetalhesDisciplina(DetailView):
 def professor(request):
     return render(request, 'disciplina/professor.html')
 
-#@login_required()
+#@login_required(login_url='user:login')
 def listar(request):
     disciplinas = Disciplina.objects.all()
     context = {
@@ -47,14 +47,13 @@ def home(request):
 
 #@login_required(login_url='user:login')
 def reservarDisciplina(request, slug):
-    """if not request.user.is_authenticated():
-        return redirect('user:login')"""
     disciplina = get_object_or_404(Disciplina, slug = slug)
-    usuarioDisciplina, created = UsuarioDisciplina.objects.get_or_create(usuario=request.user,disciplina=disciplina)
+    #usuarioDisciplina, created = UsuarioDisciplina.objects.get_or_create(usuario=request.user, disciplina=disciplina)
+    usuarioDisciplina, created = UsuarioDisciplina.objects.get_or_create(usuario=request.user, disciplina=disciplina)
 
-    if created:
+    """if created:
          usuarioDisciplina.active()
-         messages.info(request, 'Você já está inscrito nessa Disciplina!')
+         messages.info(request, 'Você já está inscrito nessa Disciplina!')"""
 
     messages.success(request, 'Sua solicitação vai ser analisada!')
     return redirect('disciplina:listar')

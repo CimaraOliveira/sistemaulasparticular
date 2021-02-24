@@ -2,31 +2,45 @@
 
 {%block conteudo %}
 
-<div class="row">
-    <div class="col-lg-12" >
-        <div class="card-columns">
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Disciplina</th>
+      <th scope="col">Status</th>
+      <th scope="col">data_reserva</th>
+      <th scope="col">Imagem</th>
+      <th scope="col">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for usuariodisciplina in usuariodisciplinas %}
+    <tr>
 
-            {% for disciplina in disciplinas %}
-            <div class="card" style="width: 18rem;">
 
-                {% if disciplina.imagem %}
-                <a href="{{ disciplina.slug }}">
-                <img class="card-img-top" src="{{ disciplina.imagem.url  }}" alt="{{ disciplina.nome }}"
-                style="max-width: 350px; height: auto">
-                </a>
-                {% endif %}
 
-                <div class="card-body">
-                     <a href="{{ disciplina.slug }}">
-                         <h5 class="card-title">{{ usuariodisciplina.status }}</h5></a>
-                    <p class="card-text">{{ disciplina.data_reserva }}</p>
-                </div>
+      <td>{{ usuariodisciplina.disciplina }}</td>
 
-            </div>
+      <td>{{ usuariodisciplina.status }}</td>
 
-            {% endfor %}
 
-        </div>
-    </div>
-</div>
+      <td>{{ usuariodisciplina.data_reserva }}</td>
+
+
+      {% if usuariodisciplina.imagem %}
+      <td><img width="50px" height="50px" src="{{ usuariodisciplina.imagem.url  }}"></td>
+      {%else%}
+      <td></td>
+      {% endif %}
+
+
+      <td>
+        <a class="btn btn-primary"  href="#">Remover</a>
+      </td>
+
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
 {% endblock %}
