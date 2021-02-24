@@ -16,13 +16,8 @@
           </li>
 
 
-        <!-- {% if request.user.groups.all.0.name == 'admin' %}
-          <li class="nav-item">
-            <a class="nav-link" href="#">Professores</a>
-          </li>
-          {% endif %}-->
-         {% if request.user.is_authenticated %}
-            {% if  user.aluno %}
+         {% if user.is_authenticated %}
+            {% if user.aluno %}
          <li>
             <div class="dropdown show">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
