@@ -1,17 +1,11 @@
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages, auth
 from django.core.validators import validate_email
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
-from django.contrib.auth import login as ts_login
-from setuptools.extension import Library
-
-from .models import Usuario
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, TemplateView, DetailView, RedirectView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from sqlparse.sql import For
 
 from disciplina.models import Disciplina,Usuario, UsuarioDisciplina
 from django.http import HttpResponseRedirect, HttpResponse
@@ -87,10 +81,8 @@ def login(request):
     if request.method != 'POST':
         return render(request, 'user/login.html')
         #return redirect('login')
-
     usuario = request.POST.get('usuario')
     senha = request.POST.get('senha')
-
 
     if not usuario or not senha:
         messages.error(request, 'Preencha os campos!')
@@ -107,30 +99,28 @@ def login(request):
     if not usuario or not senha:
         messages.error(request, 'Preencha os campos!')
         return redirect('user:login')
-
         #return redirect('login')
-
     user = auth.authenticate(request, username=usuario, password=senha)
 
     if user is not None:
         if user.usuario.professor:
             messages.success(request, 'Login efetuado com Sucesso!')
+            print(usuario)
             return redirect('professor:detail')
 
-        else:
+        if user.usuario.aluno:
             messages.success(request, 'Login efetuado com Sucesso!')
+            print(usuario)
             return redirect('disciplina:listar')
 
-
-
-         #messages.success(request, 'Login efetuado com Sucesso!')
-            #return redirect('disciplina:listar')
     messages.error(request, 'Usuário ou Senha Inválidos!')
     return redirect('user:login')
     # return redirect('login')
 
+
 def index(request):
     return render(request,'user/index.html')
+
 
 def reservarDisciplina(request):
     form = FormUsuDisc(request.POST, request.FILES)
@@ -145,7 +135,6 @@ def reservarDisciplina(request):
     }
 
     return render(request, 'user/reservarDisciplina.html', context)
-
 
 
 def editarUsuario(request,id):
@@ -182,10 +171,6 @@ def user_logout(request):
     logout(request)
     return redirect('user:login')
 
-def alterarSenha(request):
-    pass
-
-
 
 def minhasDisciplinas(request):
 
@@ -196,5 +181,6 @@ def minhasDisciplinas(request):
     print(usuariodisciplinas)
     return render(request, 'user/minhasDisciplinas.html', context)
 
-
+def alterarSenha(request):
+    pass
 

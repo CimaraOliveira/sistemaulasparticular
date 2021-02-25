@@ -4,16 +4,11 @@ from django.contrib.auth.models import User, UserManager
 import os
 from PIL import Image
 from django.utils.text import slugify
-
 from django.db.models import Q
-from django.urls import reverse
-from django import forms
-
 from django.utils import timezone
 
 
 class Professor(models.Model):
-
     nome = models.CharField(max_length=50)
     descricao_curta = models.TextField('Descrição',max_length=255)
     descricao_longa = models.TextField()
@@ -43,8 +38,8 @@ class Usuario(models.Model):
     aluno = models.BooleanField("aluno", null=True, blank=True)
     professor = models.BooleanField("professor", null=True, blank=True)
 
-
-
+    def __str__(self):
+        return self.nome
 
 class Meta:
       verbose_name = ('Usuário')

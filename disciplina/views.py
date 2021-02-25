@@ -11,14 +11,8 @@ from django.contrib import messages, auth
 from django.shortcuts import render, redirect, reverse
 from .models import Disciplina,UsuarioDisciplina
 from . import models
+from disciplina.serializer import DiscipilnaApi
 
-
-
-"""class Home(ListView):
-    model = models.Disciplina
-    template_name = 'disciplina/home.html'
-
-    context_object_name = 'disciplinas'"""
 
 class DetalhesDisciplina(DetailView):
     model = models.Disciplina
@@ -30,7 +24,7 @@ class DetalhesDisciplina(DetailView):
 def professor(request):
     return render(request, 'disciplina/professor.html')
 
-#@login_required(login_url='user:login')
+@login_required(login_url='user:login')
 def listar(request):
     disciplinas = Disciplina.objects.all()
     context = {
@@ -57,4 +51,3 @@ def reservarDisciplina(request, slug):
 
     messages.success(request, 'Sua solicitação vai ser analisada!')
     return redirect('disciplina:listar')
-

@@ -1,5 +1,7 @@
 {% load static %}
 <!-- Navigation -->
+
+
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
       <a class="navbar-brand" href="{% url 'disciplina:listar' %}">SAsP</a>
@@ -7,50 +9,51 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
+
+
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="{% url 'disciplina:listar' %}">Home
+              <a class="nav-link" href="{% url 'disciplina:listar' %}">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
 
-
-         {% if user.is_authenticated %}
+            {% if user.is_authenticated %}
             {% if user.aluno %}
-         <li>
-            <div class="dropdown show">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Meus
-                </a>
+            <li>
+                <div class="dropdown show">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Detalhes
+                    </a>
 
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
-                    <a class="dropdown-item" href="{#}">Minhas Disciplinas</a>
-                    <a class="dropdown-item" href="{% url 'user:editarUsuario' user.id %}">Dados Pessoais</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="{% url 'user:minhasDisciplinas' %}">Minhas Disciplinas</a>
+                        <a class="dropdown-item" href="{% url 'user:editarUsuario' user.id %}">Dados Pessoais</a>
+
+                    </div>
                 </div>
-            </div>
             </li>
             {% endif %}
-            <!--{% if user.professor %}-->
+            {% if user.professor %}
             <li>
-            <div class="dropdown show">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenu"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Meus
-                </a>
+                <div class="dropdown show">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenu"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Detalhes
+                    </a>
 
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu">
 
-                    <a class="dropdown-item" href="{% url 'professor:detail' %}">Minhas Disciplinas</a>
-                    <a class="dropdown-item" href="#">Dados Pessoais</a>
-                    <a class="dropdown-item" href="#">Solicitações</a>
+                        <a class="dropdown-item" href="{% url 'professor:detail' %}">Minhas Disciplinas</a>
+                        <a class="dropdown-item" href="#">Teste</a>
+                        <a class="dropdown-item" href="{% url 'professor:listarPedidosReserva'  %}">Agendamentos</a>
+                    </div>
                 </div>
-            </div>
             </li>
-            <!--{% endif %}-->
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'user:minhasDisciplinas' user.id %}">Sobre</a>
             </li>
@@ -58,25 +61,27 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'user:user_logout' %}">Sair</a>
             </li>
-          {% else %}
+
+            {% endif %}
+             {% if not user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'user:login' %}">Login</a>
             </li>
 
-            <li class="nav-item">
+            <!--<li class="nav-item">
                 <a class="nav-link" href="{% url 'user:minhasDisciplinas'  %}">Sobre</a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'professor:listarPedidosReserva'  %}">Reservar</a>
-            </li>
-
-
+            </li>-->
 
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'user:criar' %}">Cadastre-se</a>
             </li>
-           {% endif %}
+
+            {% endif %}
+
 
         </ul>
       </div>

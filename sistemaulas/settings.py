@@ -42,11 +42,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'crispy_forms',
+    'rest_framework',
 
     'disciplina.apps.DisciplinaConfig',
     'user.apps.UserConfig',
     'professor.apps.ProfessorConfig'
 ]
+
+"""REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}"""
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
