@@ -55,7 +55,7 @@ class Usuario(AbstractUser):
 class Disciplina(models.Model):
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
     nome = models.CharField('Nome', max_length=50)
-    titulo = models.TextField('Título', max_length=25)
+    titulo = models.CharField('Título', max_length=25)
     descricao_longa = models.TextField('Descrição')
     imagem = models.ImageField(upload_to='disciplina_imagens/%Y/%m/', blank=True, null=True)
     slug = models.SlugField('Atalho', unique=True, blank=True, null=True)

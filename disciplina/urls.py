@@ -8,7 +8,6 @@ urlpatterns = [
     path('', views.listar, name='listar'),
     path('<slug>', views.DetalhesDisciplina.as_view(), name='detalhesDisciplina'),
     path('reservarDisciplina/<slug:slug>/', views.reservarDisciplina, name='reservarDisciplina'),
-
-
+    path('busca/', views.busca, name='busca'),
 
 ]

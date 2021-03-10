@@ -7,8 +7,10 @@ from django.contrib import messages, auth
 from django.shortcuts import render, redirect, reverse
 from django.core.validators import validate_email
 from . import models
+from django.db.models.functions import Concat
 from .models import Usuario, Disciplina, UsuarioDisciplina,Professor
 from django.core.paginator import Paginator
+from django.db.models import Q, Value
 
 
 def criar(request):
@@ -66,3 +68,27 @@ def reservarDisciplina(request, slug):
 
     messages.success(request, 'Sua solicitação vai ser analisada!')
     return redirect('disciplina:listar')
+
+def busca(request):
+    termo = request.GET.get('termo')
+
+    if termo is None or not termo:
+        messages.error(request, 'Campo não pode ser vazio!')
+        return redirect('disciplina:listar')
+
+    campos = Concat('nome', Value(' '), 'titulo')
+
+    disciplinas = Disciplina.objects.annotate(
+        nome_disciplina=campos
+    ).filter(
+        Q(nome_disciplina__icontains=termo)
+    )
+    paginator = Paginator(disciplinas, 6)
+    page = request.GET.get('p')
+    disciplinas = paginator.get_page(page)
+
+    context = {
+        'disciplinas': disciplinas
+    }
+    return render(request, 'disciplina/busca.html', context)
+
