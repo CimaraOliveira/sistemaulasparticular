@@ -43,19 +43,27 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'rest_framework',
+    'rest_framework_swagger',
 
     'disciplina.apps.DisciplinaConfig',
     'user.apps.UserConfig',
-    'professor.apps.ProfessorConfig'
+    'professor.apps.ProfessorConfig',
+    'accounts.apps.AccountsConfig',
+
+    'rest_framework.authtoken',
+    'rest_auth',
+    #'allauth',
+    #'allauth.account',
+    #'rest_auth',
+    #'rest_auth.registration'
+
+
+
 ]
 
-"""REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}"""
+
+
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -79,14 +87,20 @@ TEMPLATES = [
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
+         'libraries': {
+                    'staticfiles': 'django.templatetags.static',
+                 },
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
             ],
         },
     },
+
+
 ]
 
 WSGI_APPLICATION = 'sistemaulas.wsgi.application'
@@ -127,7 +141,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -157,6 +171,22 @@ MESSAGE_TAGS ={
     constants.WARNING: 'alert-warning',
 }
 
-LOGIN_REDIRECT_URL ='/listar'
+#user Model
+AUTH_USER_MODEL = "disciplina.Usuario"
+
+LOGIN_REDIRECT_URL ='disciplina/listar'
 LOGOUT__REDIRECT_URL='/'
 
+APPEND_SLASH = False
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "sistema.aulas@gmail.com"
+EMAIL_HOST_PASSWORD = "sistema2021"

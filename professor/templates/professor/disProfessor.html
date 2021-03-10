@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{%block conteudo %}
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa fa-institution"></i>Minhas Disciplinas
+    </div>
+    <div class="card-body">
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nome</th>
+      <th scope="col">Professor</th>
+      <th scope="col">Título</th>
+      <th scope="col">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for disciplina in professoeDisciplinas %}
+    <tr>
+       <td>{{ disciplina.nome }}</td>
+
+      <td>{{ disciplina.professor }}</td>
+
+      <td>{{ disciplina.titulo }}</td>
+
+
+      <td>
+          <a class="btn btn-info" href="{% url 'professor:editarDisciplina' disciplina.id %}">Editar</a>
+          <a class="btn btn-primary"  href="{% url 'professor:removerDisciplina' disciplina.id %}">Remover</a>
+
+       </td>
+
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+    </div>
+</div>
+
+
+{% endblock %}

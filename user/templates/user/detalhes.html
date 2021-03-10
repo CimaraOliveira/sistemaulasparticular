@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+<!--{% load crispy_forms_tags %}-->
+
+{% block conteudo %}
+
+{% include 'parciais/_messages.html' %}
+
+
+{% include 'parciais/_messages.html' %}
+<div class="card">
+    <div class="card-header">
+        Dados Pessoais
+    </div>
+    <div class="card-body">
+
+
+        <b>Usuario:</b> {{usuario.username}}<br>
+        <b>Nome:</b> {{usuario.first_name}}<br>
+        <b>Sobrenome:</b> {{usuario.last_name}}<br>
+        <b>E-mail:</b> {{usuario.email}}<br>
+        <!--<b>Senha</b> {{usuario.password}}<br>-->
+
+        <br/>
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-info" href="{% url 'user:editarUsuario' user.id %}">Alterar</a>
+
+            </div>
+
+        </div>
+    </div>
+    <br/>
+
+
+</div>
+
+
+{% endblock%}

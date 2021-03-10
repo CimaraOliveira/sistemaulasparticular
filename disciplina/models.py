@@ -1,10 +1,10 @@
 from django.db import models
 from django.conf import settings
-from django.contrib.auth.models import User, UserManager
+from django.contrib.auth.models import AbstractUser
 import os
 from PIL import Image
 from django.utils.text import slugify
-from django.db.models import Q
+from django.db.models import Q, BooleanField
 from django.utils import timezone
 
 
@@ -26,39 +26,33 @@ class Professor(models.Model):
         return self.nome
 
 
-class Usuario(models.Model):
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Usuário')
-    is_active = models.BooleanField('Ativo', default=False)
+class Usuario(AbstractUser):
+    #is_active: BooleanField = models.BooleanField('Ativo', default=False)
     slug = models.SlugField('Atalho', max_length=200, null=True, blank=True)
-    nome = models.CharField('Nome', max_length=30)
-    sobrenome = models.CharField('Sobrenome', max_length=30, blank=True)
-    email = models.CharField('E-mail', max_length=30, blank=True)
     telefone = models.CharField('Telefone', max_length=20)
-
-    aluno = models.BooleanField("aluno", null=True, blank=True)
-    professor = models.BooleanField("professor", null=True, blank=True)
-
-    def __str__(self):
-        return self.nome
-
-class Meta:
-      verbose_name = ('Usuário')
-      verbose_name_plural = ('Usuários')
+    is_staff = models.BooleanField(default=1)
+    is_superuser = models.BooleanField(default=1)
+    is_active = models.BooleanField(default=True)
 
 
-def save(self, *args, **kwargs):
-    if not self.slug:
-        slug = f'{slugify(self.nome)}'
-        self.slug = slug
+    LOAN_STATUS = (
+        ('professor', 'Professor'),
+        ('aluno', 'Aluno'),
 
-    super().save(*args, **kwargs)
+    )
+    status = models.CharField(max_length=10,choices=LOAN_STATUS,blank=True)
 
-    def get_id(self):
-        return self.id
+
+    @property
+    def name(self):
+        return "{} {}".format(self.first_name, self.last_name)
+
+    class Meta:
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
 
 
 class Disciplina(models.Model):
-    # usuarios = models.ManyToManyField(Usuario)
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
     nome = models.CharField('Nome', max_length=50)
     titulo = models.TextField('Título', max_length=25)
@@ -105,13 +99,12 @@ class Disciplina(models.Model):
         if self.imagem:
             self.resize_image(self.imagem, max_image_size)
 
-    def __str__(self):
-        return self.nome or self.professor
 
 
 class UsuarioDisciplina(models.Model):
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name="linguagem")
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="linguagem")
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE, related_name="linguagem")
+    #professor = models.ForeignKey(Professor, on_delete=models.CASCADE, related_name="professor")
     STATUS_CHOICES = (
         (0, 'Pendente'),
         (1, 'Aprovado'),
@@ -130,6 +123,6 @@ class UsuarioDisciplina(models.Model):
 
 
     class Meta:
-        verbose_name = 'Inscrição'
-        verbose_name_plural = 'Inscrições'
+        verbose_name = 'Reserva'
+        verbose_name_plural = 'Reservas'
 

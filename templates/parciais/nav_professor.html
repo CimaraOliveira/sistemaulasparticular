@@ -1,0 +1,113 @@
+{% load static %}
+<!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'disciplina:listar' %}">SAsP</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'disciplina:listar' %}">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+
+          {% if not user.is_authenticated %}
+
+
+
+                   <li class="nav-item">
+                       <a class="nav-link" href="{% url 'user:user_logout' %}">Sair</a>
+                   </li>
+            {% endif %}
+
+               <li>
+                        <div class="dropdown show">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenu"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Detalhes
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                               <!-- {% if user.status == 'aluno' %}-->
+                                <a class="dropdown-item" href="{% url 'professor:cadastroProfessor' %}">Perfil
+                                    professor</a> <!--{% endif %}-->
+                                <a class="dropdown-item" href="{% url 'professor:cadastrarDisc' %}">Cadastrar
+                                    Disciplinas</a>
+                                <a class="dropdown-item" href="{% url 'professor:disProfessor' %}">Minhas
+                                    Disciplinas</a>
+                                <a class="dropdown-item" href="{% url 'user:detalhes' user.id %}">Meus Dados</a>
+                                <a class="dropdown-item" href="{% url 'professor:listarPedidosReserva' %}">Aprovar
+                                    Agendamentos</a>
+                            </div>
+                        </div>
+                   </li>
+
+               <li class="nav-item">
+                       <a class="nav-link" href="{% url 'user:user_logout' %}">Sair</a>
+                   </li>
+
+
+          {% else %}
+
+                 <li class="nav-item">
+                      <a class="nav-link" href="{% url 'user:user_login' %}">Login</a>
+                 </li>
+
+
+          {% endif %}
+
+           <li class="nav-item">
+                       <a class="nav-link" href="{% url 'user:user_logout' %}">Sair</a>
+           </li>
+
+            <li>
+                <div class="dropdown show">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenu1"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Detalhes
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+
+                        <a class="dropdown-item" href="{% url 'professor:cadastroProfessor' %}">Perfil
+                            professor</a>
+                        <a class="dropdown-item" href="{% url 'professor:cadastrarDisc' %}">Cadastrar
+                            Disciplinas</a>
+                        <a class="dropdown-item" href="{% url 'professor:disProfessor' %}">Minhas
+                            Disciplinas</a>
+                        <a class="dropdown-item" href="{% url 'user:detalhes' user.id %}">Meus Dados</a>
+                        <a class="dropdown-item" href="{% url 'professor:listarPedidosReserva' %}">Aprovar
+                            Agendamentos</a>
+                    </div>
+                </div>
+            </li>
+
+
+            <li>
+                <div class="dropdown show">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenu2"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Detalhes
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+
+                        <a class="dropdown-item" href="{% url 'professor:disProfessor' %}">Minhas
+                            Disciplinas</a>
+                        <a class="dropdown-item" href="{% url 'user:editarUsuario' user.id %}">Meus Dados</a>
+                        <a class="dropdown-item"
+                           href="{% url 'professor:listarPedidosReserva' %}">Agendamentos</a>
+                    </div>
+                </div>
+            </li>
+
+
+        </ul>
+      </div>
+    </div>
+  </nav>

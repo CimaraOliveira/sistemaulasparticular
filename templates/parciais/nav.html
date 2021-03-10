@@ -19,25 +19,27 @@
             </a>
           </li>
 
-            {% if user.is_authenticated %}
-            {% if user.aluno %}
-            <li>
+          {% if user.is_authenticated %}
+                {% if user.status == 'aluno' %}
+                 <li>
                 <div class="dropdown show">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenu2"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Detalhes
                     </a>
 
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
 
-                        <a class="dropdown-item" href="{% url 'user:minhasDisciplinas' %}">Minhas Disciplinas</a>
-                        <a class="dropdown-item" href="{% url 'user:editarUsuario' user.id %}">Dados Pessoais</a>
+                        <a class="dropdown-item" href="{% url 'user:minhasDisciplinas' %}">Minhas
+                            Disciplinas</a>
+                        <a class="dropdown-item" href="{% url 'user:detalhes' user.id %}">Dados Pessoais</a>
 
                     </div>
                 </div>
             </li>
             {% endif %}
-            {% if user.professor %}
+
+            {% if user.status == 'professor' %}
             <li>
                 <div class="dropdown show">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenu"
@@ -45,40 +47,32 @@
                         Detalhes
                     </a>
 
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-
-                        <a class="dropdown-item" href="{% url 'professor:detail' %}">Minhas Disciplinas</a>
-                        <a class="dropdown-item" href="#">Teste</a>
-                        <a class="dropdown-item" href="{% url 'professor:listarPedidosReserva'  %}">Agendamentos</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <a class="dropdown-item" href="{% url 'professor:cadastroProfessor' %}">Perfil
+                            professor</a>
+                        <a class="dropdown-item" href="{% url 'professor:cadastrarDisc' %}">Cadastrar
+                            Disciplinas</a>
+                        <a class="dropdown-item" href="{% url 'professor:disProfessor' %}">Minhas
+                            Disciplinas</a>
+                        <a class="dropdown-item" href="{% url 'user:detalhes' user.id %}">Meus Dados</a>
+                        <a class="dropdown-item" href="{% url 'professor:listarPedidosReserva' %}">Aprovar
+                            Agendamentos</a>
                     </div>
                 </div>
             </li>
             {% endif %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'user:minhasDisciplinas' user.id %}">Sobre</a>
-            </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'user:user_logout' %}">Sair</a>
-            </li>
 
-            {% endif %}
-             {% if not user.is_authenticated %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'user:login' %}">Login</a>
-            </li>
+                   <li class="nav-item">
+                       <a class="nav-link" href="{% url 'user:user_logout' %}">Sair</a>
+                   </li>
+            {% else %}
 
-            <!--<li class="nav-item">
-                <a class="nav-link" href="{% url 'user:minhasDisciplinas'  %}">Sobre</a>
-            </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'professor:listarPedidosReserva'  %}">Reservar</a>
-            </li>-->
 
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'user:criar' %}">Cadastre-se</a>
-            </li>
+                 <li class="nav-item">
+                      <a class="nav-link" href="{% url 'user:user_login' %}">Login</a>
+                 </li>
 
             {% endif %}
 

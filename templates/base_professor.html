@@ -1,0 +1,42 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+     {% include 'parciais/_head.html' %}
+    <title>{% block titulo %}{%endblock%}SAsP</title>
+
+</head>
+
+<body>
+{% include 'parciais/nav.html' %}
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+
+
+            <main class="container mt-4 mb-4">
+
+                 {% include 'parciais/_messages.html' %}
+                 {%block conteudo%} {%endblock%}
+
+             </main>
+        </div>
+    </div>
+</div>
+
+
+
+ <!--{% include 'parciais/footer.html' %}-->
+
+<script src="http://yui.yahooapis.com/3.12.0/build/yui/yui-min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script src="{% static 'vendor/jquery/jquery.slim.min.js'%}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+
+</body>
+
+</html>

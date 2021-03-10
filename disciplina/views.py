@@ -1,17 +1,35 @@
+
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.views import View
-from django.contrib.auth.models import User
-from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic import CreateView
 from django.contrib import messages
 from django.contrib import messages, auth
 from django.shortcuts import render, redirect, reverse
-from .models import Disciplina,UsuarioDisciplina
+from django.core.validators import validate_email
 from . import models
-from disciplina.serializer import DiscipilnaApi
+from .models import Usuario, Disciplina, UsuarioDisciplina,Professor
+from django.views.decorators.http import require_http_methods
+
+
+def criar(request):
+    if request.method != 'POST':
+        return render(request, 'disciplina/criar.html')
+
+    username = request.POST['username']
+    first_name = request.POST['first_name']
+    last_name = request.POST['last_name']
+    email = request.POST['email']
+    status = request.POST['status']
+    password = request.POST['password']
+    password1 = request.POST['password1']
+
+    messages.success(request, 'Usuário Registrado com Sucesso!')
+
+    new_user = Usuario.objects.create_superuser(username=username, first_name=first_name, last_name=last_name,
+                         email=email,  status=status, password=password)
+    new_user.save()
+    return redirect('user:user_login')
+
 
 
 class DetalhesDisciplina(DetailView):
@@ -20,28 +38,22 @@ class DetalhesDisciplina(DetailView):
     context_object_name = 'disciplina'
     slug_url_kwarg = 'slug'
 
-@login_required()
-def professor(request):
-    return render(request, 'disciplina/professor.html')
 
-@login_required(login_url='user:login')
+#@csrf_exempt
+@login_required(login_url='user:user_login')
 def listar(request):
+
     disciplinas = Disciplina.objects.all()
     context = {
         'disciplinas': disciplinas
     }
     return render(request, 'disciplina/listar.html', context)
 
-def home(request):
-    disciplinas = Disciplina.objects.all()
-    context = {
-        'disciplinas': disciplinas
-    }
-    return render(request, 'disciplina/home.html', context)
 
-#@login_required(login_url='user:login')
+@login_required(login_url='user:user_login')
 def reservarDisciplina(request, slug):
-    disciplina = get_object_or_404(Disciplina, slug = slug)
+    #disciplina = get_object_or_404(Disciplina, slug = slug)
+    disciplina = get_object_or_404(Disciplina, slug=slug)
     #usuarioDisciplina, created = UsuarioDisciplina.objects.get_or_create(usuario=request.user, disciplina=disciplina)
     usuarioDisciplina, created = UsuarioDisciplina.objects.get_or_create(usuario=request.user, disciplina=disciplina)
 
