@@ -48,8 +48,8 @@
                     </a>
 
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <a class="dropdown-item" href="{% url 'professor:cadastroProfessor' %}">Perfil
-                            professor</a>
+                        <a class="dropdown-item" href="{% url 'professor:cadastroProfessor' %}">Adicionar
+                            Professor</a>
                         <a class="dropdown-item" href="{% url 'professor:cadastrarDisc' %}">Cadastrar
                             Disciplinas</a>
                         <a class="dropdown-item" href="{% url 'professor:disProfessor' %}">Minhas
@@ -57,6 +57,8 @@
                         <a class="dropdown-item" href="{% url 'user:detalhes' user.id %}">Meus Dados</a>
                         <a class="dropdown-item" href="{% url 'professor:listarPedidosReserva' %}">Aprovar
                             Agendamentos</a>
+                        <a class="dropdown-item" href="{% url 'professor:detalhesProfessor' %}">Perfil Professor</a>
+                        <a class="dropdown-item" href="#">Aulas Ministradas</a>
                     </div>
                 </div>
             </li>

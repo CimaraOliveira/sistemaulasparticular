@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{%block conteudo%}
+
+<h1>Detalhes professores</h1>
+ <!--{% if  request.user.is_authenticated %}-->
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Descricao</th>
+      <th scope="col">Formação</th>
+      <th scope="col">Imagem</th>
+      <th scope="col">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for professor in professores %}
+    <tr>
+
+       <td>{{ professor.id}}</td>
+
+      <td>{{ professor.nome}}</td>
+
+      <td>{{ professor.descricao_curta }}</td>
+
+
+      <td>{{ professor.descricao_longa }}</td>
+
+
+      {% if professor.imagem %}
+      <td><img width="50px" height="50px" src="{{ professor.imagem.url  }}"></td>
+      {%else%}
+      <td></td>
+      {% endif %}
+
+
+      <td>
+        <a class="btn btn-info" href="{% url 'professor:editarProfessor' professor.id %}">Editar</a>
+        <a class="btn btn-primary"  href="#">Remover</a>
+      </td>
+
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<!--{% endif %}-->
+
+{% endblock %}

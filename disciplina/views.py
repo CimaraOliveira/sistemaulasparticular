@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect, reverse
 from django.core.validators import validate_email
 from . import models
 from .models import Usuario, Disciplina, UsuarioDisciplina,Professor
-from django.views.decorators.http import require_http_methods
+from django.core.paginator import Paginator
 
 
 def criar(request):
@@ -42,8 +42,11 @@ class DetalhesDisciplina(DetailView):
 #@csrf_exempt
 @login_required(login_url='user:user_login')
 def listar(request):
-
     disciplinas = Disciplina.objects.all()
+    paginator = Paginator(disciplinas, 6)
+    page = request.GET.get('p')
+    disciplinas = paginator.get_page(page)
+
     context = {
         'disciplinas': disciplinas
     }

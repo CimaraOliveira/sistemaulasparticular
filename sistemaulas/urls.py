@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from disciplina.disciplina_service import listarDisciplina
 from professor.professor_service import  listarProfesor
-from user.user_service import listarUsuario, listarReservasUsuario
+from user.user_service import listarUsuario, listarReservasUsuario,UsuariosViewSet
 from rest_framework import routers
 from rest_framework_swagger.views import get_swagger_view
 
@@ -14,6 +14,7 @@ router.register(r'disciplina', listarDisciplina)
 router.register(r'professor', listarProfesor)
 router.register(r'user', listarUsuario)
 router.register(r'userDisciplina', listarReservasUsuario)
+router.register(r'cadastrar_usuario', UsuariosViewSet)
 
 schema_view = get_swagger_view(title='API Sistema de Aulas Particulares')
 
@@ -28,7 +29,9 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('api/',include(router.urls)),
     path('swagger/', schema_view),
-    #path('disciplina/', include('disciplina.urls')),
+    path('relatorio/',include('relatorio.urls')),
+
+#path('disciplina/', include('disciplina.urls')),
     #path('accounts/', listar),
     #path('accounts/', include('django.contrib.auth.urls')),
     #path('login/', include('django.contrib.auth.urls'), name='login')

@@ -49,8 +49,10 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'professor.apps.ProfessorConfig',
     'accounts.apps.AccountsConfig',
+    'relatorio.apps.RelatorioConfig',
 
     'rest_framework.authtoken',
+    'knox',
     'rest_auth',
     #'allauth',
     #'allauth.account',
@@ -182,6 +184,7 @@ APPEND_SLASH = False
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
+
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
