@@ -22,7 +22,7 @@
           {% if user.is_authenticated %}
                 {% if user.status == 'aluno' %}
                  <li>
-                <div class="dropdown show">
+                <div class="dropdown">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenu2"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Detalhes
@@ -41,7 +41,7 @@
 
             {% if user.status == 'professor' %}
             <li>
-                <div class="dropdown show">
+                <div class="dropdown">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenu"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Detalhes

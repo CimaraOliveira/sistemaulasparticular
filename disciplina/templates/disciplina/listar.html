@@ -7,9 +7,10 @@
 
          {% if 'disciplina' not in request.path %}
             <br><br>
+
             <form method="get" action="{% url 'disciplina:busca' %}">
                 <div class="form-group row">
-                    <div class="col-12">
+                    <div class="col-11">
                         <input class="form-control"
                                type="search" value="{{ request.GET.termo }}"
                                id="search-input"
@@ -18,11 +19,9 @@
                     </div>
                 </div>
             </form>
+
             {% endif %}
         <div class="card-columns">
-
-
-
             {% for disciplina in disciplinas %}
             <div class="card" style="width: 18rem;">
 

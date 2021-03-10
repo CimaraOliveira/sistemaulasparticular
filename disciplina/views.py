@@ -57,9 +57,7 @@ def listar(request):
 
 @login_required(login_url='user:user_login')
 def reservarDisciplina(request, slug):
-    #disciplina = get_object_or_404(Disciplina, slug = slug)
     disciplina = get_object_or_404(Disciplina, slug=slug)
-    #usuarioDisciplina, created = UsuarioDisciplina.objects.get_or_create(usuario=request.user, disciplina=disciplina)
     usuarioDisciplina, created = UsuarioDisciplina.objects.get_or_create(usuario=request.user, disciplina=disciplina)
 
     """if created:
@@ -76,6 +74,7 @@ def busca(request):
         messages.error(request, 'Campo não pode ser vazio!')
         return redirect('disciplina:listar')
 
+
     campos = Concat('nome', Value(' '), 'titulo')
 
     disciplinas = Disciplina.objects.annotate(
@@ -83,6 +82,11 @@ def busca(request):
     ).filter(
         Q(nome_disciplina__icontains=termo)
     )
+
+    if not disciplinas:
+        messages.error(request, 'Disciplina não existe!')
+        return redirect('disciplina:listar')
+
     paginator = Paginator(disciplinas, 6)
     page = request.GET.get('p')
     disciplinas = paginator.get_page(page)
