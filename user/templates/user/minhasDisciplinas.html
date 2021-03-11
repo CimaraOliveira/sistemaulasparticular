@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{%block conteudo %}
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fa fa fa-institution"></i>Minhas Disciplinas
+  </div>
+  <div class="card-body">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Disciplina</th>
+        <th scope="col">Agendamento</th>
+        <th scope="col">Data Agendamento</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      {% for usuariodisciplina in usuariodisciplinas %}
+      <tr>
+
+        <td>{{ usuariodisciplina.disciplina.nome }}</td>
+
+        <td>{{usuariodisciplina.status}}</td>
+
+
+        <td>{{ usuariodisciplina.data_reserva }}</td>
+
+
+        {% if usuariodisciplina.imagem %}
+        <td><img width="50px" height="50px" src="{{ usuariodisciplina.imagem.url  }}"></td>
+        {%else%}
+        <td></td>
+        {% endif %}
+
+
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block conteudo %}
+
+<div class="card">
+    <div class="card-header">
+        Dados Pessoais
+    </div>
+    <div class="card-body">
+        <div class="container">
+            <form method="POST" action="{% url 'user:editarUsuario' user.id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <table class="table">
+                    {{ form|crispy }}
+                </table>
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                        <button type="submit" class="btn btn-danger">Cancelar</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock%}

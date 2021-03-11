@@ -1,0 +1,3 @@
+#!C:\Users\Cimarinha\PycharmProjects\sistemaulas\venv\Scripts\python.exe
+from gitprompt import main
+main()

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block conteudo %}
+
+{% include 'parciais/_messages.html' %}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa fa-institution"></i>Status Agendamento
+    </div>
+    <div class="container">
+        <form method="POST" action="#" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <table class="table">
+                {{ form }}
+            </table>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-success">Alterar</button>
+                    <button type="reset" class="btn btn-danger">Cancelar</button>
+                </div>
+            </div>
+            <br/>
+        </form>
+    </div>
+</div>
+
+{% endblock%}

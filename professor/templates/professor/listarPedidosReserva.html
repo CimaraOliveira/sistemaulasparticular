@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{%block conteudo%}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa fa-institution"></i>Agendamentos
+    </div>
+    <div class="card-body">
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Disciplina</th>
+      <th scope="col">Usuario</th>
+      <th scope="col">Professor</th>
+      <th scope="col">Status</th>
+      <th scope="col">Data Reserva</th>
+      <th scope="col">Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for usuariodisciplina in usuariodisciplinas %}
+    <tr>
+
+
+
+      <td>{{ usuariodisciplina.disciplina.nome }}</td>
+
+      <td>{{ usuariodisciplina.usuario.first_name }}</td>
+
+      <td>{{ usuariodisciplina.disciplina.professor }}</td>
+
+      <td>{{ usuariodisciplina.status }}</td>
+
+      <td>{{ usuariodisciplina.data_reserva }}</td>
+
+      <th></th>
+
+      <td>
+        <a class="btn btn-info"  href="{% url 'professor:alterarStatusReserva' usuariodisciplina.id %}">Alterar</a>
+      </td>
+
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+    </div>
+</div>
+
+
+{% endblock %}

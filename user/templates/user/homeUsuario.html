@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{%block conteudo %}
+<h1 class="mt-3 mb-3">{{user.first_name}}</h1>
+<div class="row">
+    <div class="col-lg-12" >
+        <div class="card-columns">
+
+
+            {% for disciplina in disciplinas %}
+            <div class="card" style="width: 18rem;">
+
+                {% if disciplina.imagem %}
+                <a href="{{disciplina.slug}}">
+                <img class="card-img-top" src="{{ disciplina.imagem.url  }}" alt="{{ disciplina.nome }}"
+                style="max-width: 350px; height: auto">
+                </a>
+                {% endif %}
+
+                <div class="card-body">
+                     <a href="{{disciplina.slug}}">
+                         <h5 class="card-title">{{ disciplina.nome }}</h5></a>
+                    <p class="card-text">{{ disciplina.titulo }}</p>
+
+                </div>
+                <!--<div class="card-footer bg-transparent border-top-light-custom text-center">
+                    <a href="{{disciplina.slug}}" class="p-2 mb-2 bg-secondary text-white text-white btn-sm m-1 btn-block">
+                       <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        Detalhes
+                    </a>
+                </div>-->
+            </div>
+
+
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -53,7 +53,7 @@ class Usuario(AbstractUser):
 
 
 class Disciplina(models.Model):
-    professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
+    professor = models.ForeignKey(Professor, on_delete=models.CASCADE,related_name="professor")
     nome = models.CharField('Nome', max_length=50)
     titulo = models.CharField('Título', max_length=25)
     descricao_longa = models.TextField('Descrição')

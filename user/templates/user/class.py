@@ -81,7 +81,7 @@ def password_reset(request, is_admin_site=False,
 
 
 def password_reset_done(request,
-                        template_name='registration/password_reset_done.html',
+                        template_name='registration/reset_password_sent.html',
                         current_app=None, extra_context=None):
     context = {
         'title': _('Password reset sent'),
