@@ -8,24 +8,6 @@ from django.db.models import Q, BooleanField
 from django.utils import timezone
 
 
-class Professor(models.Model):
-    nome = models.CharField(max_length=50)
-    descricao_curta = models.TextField('Descrição',max_length=255)
-    descricao_longa = models.TextField()
-    imagem = models.ImageField(upload_to='disciplina_imagens/%Y/%m/', blank=True, null=True)
-    slug = models.SlugField(unique=True, blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            slug = f'{slugify(self.nome)}'
-            self.slug = slug
-
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.nome
-
-
 class Usuario(AbstractUser):
     #is_active: BooleanField = models.BooleanField('Ativo', default=False)
     slug = models.SlugField('Atalho', max_length=200, null=True, blank=True)
@@ -50,6 +32,26 @@ class Usuario(AbstractUser):
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
+
+
+class Professor(models.Model):
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    nome = models.CharField(max_length=50)
+    descricao_curta = models.TextField('Descrição',max_length=255)
+    descricao_longa = models.TextField()
+    imagem = models.ImageField(upload_to='disciplina_imagens/%Y/%m/', blank=True, null=True)
+    slug = models.SlugField(unique=True, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            slug = f'{slugify(self.nome)}'
+            self.slug = slug
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.nome
+
 
 
 class Disciplina(models.Model):
