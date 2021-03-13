@@ -1,7 +1,5 @@
 import environ
 
-from sistemaulas.settings.base import *
-
 env = environ.Env()
 
 DEBUG = env.bool("DEBUG", False)

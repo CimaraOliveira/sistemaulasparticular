@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {%block conteudo%}
+{% load crispy_forms_tags %}
 
 <form method="post" action="#" enctype="multipart/form-data">
 	{% csrf_token %}
     <table class="table">
 
-        {{ form}}
+        {{ form|crispy}}
 
     </table>
 

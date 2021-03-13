@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-<!--{% load crispy_forms_tags %}-->
+{% load crispy_forms_tags %}
 
 {% block conteudo %}
 
@@ -14,13 +14,14 @@
      <form method="POST" action="{% url 'professor:cadastroProfessor' %}" enctype="multipart/form-data">
          {% csrf_token %}
 
-         <div class="col-md-12 ">
+           <div class="col-md-12 ">
             <div class="form-group">
                <label for="nome">Nome</label>
-              <input type="text" name="nome" class="form-control">
+              <input type="text" name="nome" value="{{request.user.first_name}}" class="form-control">
             </div>
         </div>
 
+   
          <div class="col-md-12 ">
              <div class="form-group">
                  <label for="descricao_curta">Perfil</label>
@@ -42,10 +43,7 @@
              </div>
          </div>
 
-
-
-
-         <div class="row">
+          <div class="row">
                 <div class="col">
                     <button type="submit" class="btn btn-success">Adicionar</button>
                     <button type="submit" class="btn btn-danger">Cancelar</button>

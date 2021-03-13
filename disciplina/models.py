@@ -35,22 +35,23 @@ class Usuario(AbstractUser):
 
 
 class Professor(models.Model):
-    user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    #user = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     nome = models.CharField(max_length=50)
     descricao_curta = models.TextField('Descrição',max_length=255)
     descricao_longa = models.TextField()
     imagem = models.ImageField(upload_to='disciplina_imagens/%Y/%m/', blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
 
+
+
     def save(self, *args, **kwargs):
         if not self.slug:
             slug = f'{slugify(self.nome)}'
             self.slug = slug
-
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.nome
+        return self.nome or self.user
 
 
 
