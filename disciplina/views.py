@@ -25,6 +25,29 @@ def criar(request):
     password = request.POST['password']
     password1 = request.POST['password1']
 
+    if not first_name or not email or not username or not password \
+            or not password1:
+        messages.error(request, 'Preencha todos os Campos!')
+        return render(request, 'disciplina/criar.html')
+
+    try:
+        validate_email(email)
+    except:
+        messages.error(request, 'Email Inválido!')
+        return render(request, 'disciplina/criar.html')
+
+    if len(password) < 6:
+        messages.error(request, 'Senha precisa ter pelo menos 6 Caracteres!')
+        return render(request, 'disciplina/criar.html')
+
+    if password != password1:
+        messages.error(request, 'Senhas não Conferem!')
+        return render(request, 'disciplina/criar.html')
+
+    if Usuario.objects.filter(email=email).exists():
+        messages.error(request, 'Email já existe!')
+        return render(request, 'disciplina/criar.html')
+
     messages.success(request, 'Usuário Registrado com Sucesso!')
 
     new_user = Usuario.objects.create_superuser(username=username, first_name=first_name, last_name=last_name,
@@ -67,7 +90,7 @@ def reservarDisciplina(request, slug):
          messages.info(request, 'Você já está inscrito nessa Disciplina!')"""
 
     messages.success(request, 'Sua solicitação vai ser analisada!')
-    return redirect('disciplina:listar')
+    return redirect('user:minhasDisciplinas')
 
 def busca(request):
     termo = request.GET.get('termo')

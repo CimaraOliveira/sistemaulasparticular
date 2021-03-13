@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-<!--{% load crispy_forms_tags %}-->
+{% load crispy_forms_tags %}
 
 {% block conteudo %}
 
@@ -13,39 +13,7 @@
         <form method="POST" action="{% url 'professor:cadastrarDisc' %}" enctype="multipart/form-data">
             {% csrf_token %}
 
-
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="nome">Nome</label>
-                    <input type="text" name="nome" class="form-control">
-                </div>
-            </div>
-
-           <div class="col-md-12 ">
-                <div class="form-group">
-                    <label for="titulo">Titulo</label>
-                    <input type="text" name="titulo" class="form-control">
-                </div>
-            </div>
-            <div class="col-md-12 ">
-                <div class="form-group">
-                    <label for="descricao_longa">Descrição</label>
-                    <textarea name="descricao_longa" cols="140" rows="5" class="form-control" required=""
-                              id="descricao_longa"></textarea>
-                </div>
-            </div>
-            <div class="col-md-12 ">
-                <div class="form-group">
-                    <label for="imagem">imagem</label>
-                    <input type="file" name="imagem" class="form-control">
-                </div>
-            </div>
-            <div class="col-md-3 ">
-                <div class="form-group">
-                    <label for="data_inicio">Data Cadastro</label>
-                    <input type="date" name="data_inicio" class="form-control">
-                </div>
-            </div>
+           {{form|crispy}}
 
             <div class="row">
                 <div class="col">
@@ -54,7 +22,6 @@
                 </div>
 
             </div>
-
         </form>
 
     </div>

@@ -14,7 +14,7 @@
             {% csrf_token %}
 
             <table class="table">
-                {{ form }}
+                {{ form|crispy }}
             </table>
             <div class="row">
                 <div class="col">

@@ -42,8 +42,6 @@ class Professor(models.Model):
     imagem = models.ImageField(upload_to='disciplina_imagens/%Y/%m/', blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
 
-
-
     def save(self, *args, **kwargs):
         if not self.slug:
             slug = f'{slugify(self.nome)}'
@@ -51,7 +49,7 @@ class Professor(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.nome or self.user
+        return self.nome
 
 
 
@@ -107,13 +105,13 @@ class Disciplina(models.Model):
 class UsuarioDisciplina(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="linguagem")
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE, related_name="linguagem")
-    #professor = models.ForeignKey(Professor, on_delete=models.CASCADE, related_name="professor")
-    STATUS_CHOICES = (
-        (0, 'Pendente'),
-        (1, 'Aprovado'),
-        (2, 'Cancelado')
+    #professor = models.ForeignKey(Professor, on_delete=models.CASCADE, related_name="Professor")
+    LOAN_STATUS = (
+        ('Pendente', 'Pendente'),
+        ('Aprovado', 'Aprovado'),
+        ('Cancelado', 'Cancelado')
     )
-    status = models.IntegerField('Situação', choices=STATUS_CHOICES, default=0, blank=True)
+    status = models.CharField('Situação', max_length=12, default='Pendente', choices=LOAN_STATUS, blank=True)
     data_reserva = models.DateField('Data Reserva', null=True, blank=True)
 
     #aceitarAgendamento = models.BooleanField("Aprovado", null=True, blank=True)
