@@ -203,5 +203,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "sistema.aulas@gmail.com"
 EMAIL_HOST_PASSWORD = "sistema2021"
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = BASE_DIR / "static"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
