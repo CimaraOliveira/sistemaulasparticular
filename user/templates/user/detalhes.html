@@ -9,16 +9,14 @@
 {% include 'parciais/_messages.html' %}
 <div class="card">
     <div class="card-header">
-        Dados Pessoais
+        Dados Pessoais: {{usuario.username}}
     </div>
     <div class="card-body">
 
-
-        <b>Usuario:</b> {{usuario.username}}<br>
-        <b>Nome:</b> {{usuario.first_name}}<br>
-        <b>Sobrenome:</b> {{usuario.last_name}}<br>
-        <b>E-mail:</b> {{usuario.email}}<br>
-        <!--<b>Senha</b> {{usuario.password}}<br>-->
+        <b>Usuario:</b> {{usuario.username}}<br><br/>
+        <b>Nome:</b> {{usuario.first_name}}<br><br/>
+        <b>Sobrenome:</b> {{usuario.last_name}}<br><br/>
+        <b>E-mail:</b> {{usuario.email}}<br><br/>
 
         <br/>
         <div class="row">

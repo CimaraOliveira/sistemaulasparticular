@@ -32,14 +32,11 @@ def cadastroProfessor(request):
         return redirect('professor:detalhesProfessor')
 
     else:
-
         form = FormProfessor(request.POST, request.FILES)
-
     context = {
         'form': form,
     }
     return render(request, 'professor/cadastroProfessor.html', context)
-
 
 
 @login_required(login_url='user:user_login')
@@ -72,13 +69,14 @@ def editarDisciplina(request, id):
 def removerDisciplina(request, id):
     disciplina = Disciplina.objects.get(id=id)
     disciplina.delete()
-    return redirect('disciplina:listar')
+    messages.success(request, 'Disciplina Removida com sucesso!')
+    return redirect('professor:disProfessor')
 
 
 
 @login_required(login_url='user:user_login')
 def detalhesProfessor(request):
-    professores = Professor.objects.filter(nome=request.user.username)
+    professores = Professor.objects.filter(id=request.user.id)
     context = {
         'professores': professores
     }
@@ -138,6 +136,9 @@ def disProfessor(request):
     return render(request, 'professor/disProfessor.html', context)
 
 
-def perfilProfessor(request):
-    professor = Professor.objects.filter(id=request.user.id)
-    return render(request, 'professor/perfilProfessor.html')
+
+
+
+
+
+

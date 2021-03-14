@@ -14,7 +14,6 @@ urlpatterns = [
    path('listarPedidosReserva/', views.listarPedidosReserva, name='listarPedidosReserva'),
    path('alterarStatusReserva/<int:id>', views.alterarStatusReserva, name='alterarStatusReserva'),
    path('disProfessor/', views.disProfessor, name='disProfessor'),
-
 ]
 
 
