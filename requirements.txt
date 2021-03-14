@@ -7,6 +7,7 @@ chardet==4.0.0
 coreapi==2.3.3
 coreschema==0.0.4
 cryptography==3.4.6
+django-crispy-forms==1.11.1
 databases==0.4.1
 decorators==2.0.7
 defusedxml==0.6.0
