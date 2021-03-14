@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+import django_heroku
 
 from django.contrib.messages import constants
 
@@ -27,7 +28,7 @@ SECRET_KEY = 'j1-p@cbi%@)bmdeqot-nvnd1qxv=^66$&1d%wfl(c^(tk(656-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://sistema-aulas.herokuapp.com/']
 
 
 
@@ -209,5 +210,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'templates/static')
 ]
+
+django_heroku.settings(locals())
