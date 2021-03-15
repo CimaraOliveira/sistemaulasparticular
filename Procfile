@@ -1,2 +1,2 @@
- 
+
 web: gunicorn sistemaulas.wsgi
