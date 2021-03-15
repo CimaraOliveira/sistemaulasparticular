@@ -2,10 +2,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import render
 from django.views.generic import CreateView
 from django.contrib import messages, auth
+
 from .models import FormDisciplina, FormProfessor, FormUsuDisc
 from disciplina.models import Disciplina, Professor, UsuarioDisciplina, Usuario
 from django.contrib.auth.decorators import login_required
 from .form import CadProfForm
+from django.shortcuts import  get_object_or_404
+from django.db.models import Q
+
 
 
 @login_required(login_url='user:user_login')
@@ -101,10 +105,15 @@ def editarProfessor(request, id):
 
 @login_required(login_url='user:user_login')
 def listarPedidosReserva(request):
-    # usuariodisciplinas = UsuarioDisciplina.objects.filter(disciplina_id=request.user.id)
-    usuariodisciplinas = UsuarioDisciplina.objects.filter(id=request.user.id)
+    #usuariodisciplinas = UsuarioDisciplina.objects.filter(id=request.user.id)
+    #usuariodisciplinas = UsuarioDisciplina.objects.filter(usuario_id=request.user.id)
+    #usuariodisciplinas = UsuarioDisciplina.objects.select_related('disciplina').filter(disciplina_id=request.user.id)
+    professor =  Professor.objects.get(user_id=request.user.id)
+    usuariodisciplinas = UsuarioDisciplina.objects.raw('select disciplina_id from usuariodisciplina')
     context = {
         'usuariodisciplinas': usuariodisciplinas
+
+
     }
     return render(request, 'professor/listarPedidosReserva.html', context)
 
@@ -128,7 +137,10 @@ def alterarStatusReserva(request, id):
 
 @login_required(login_url='user:user_login')
 def disProfessor(request):
-    professor = request.user
+    professor = request.user.id
+
+    print(professor)
+    #professoeDisciplinas = Disciplina.objects.filter(professor_id=request.user.id)
     professoeDisciplinas = Disciplina.objects.filter(professor_id=request.user.id)
     context = {
         'professoeDisciplinas': professoeDisciplinas

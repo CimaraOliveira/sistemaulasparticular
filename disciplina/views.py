@@ -80,10 +80,10 @@ def listar(request):
 
 @login_required(login_url='user:user_login')
 def reservarDisciplina(request, slug):
-    #disciplina = get_object_or_404(Disciplina, slug = slug)
     disciplina = get_object_or_404(Disciplina, slug=slug)
+
     #usuarioDisciplina, created = UsuarioDisciplina.objects.get_or_create(usuario=request.user, disciplina=disciplina)
-    usuarioDisciplina, created = UsuarioDisciplina.objects.get_or_create(usuario=request.user, disciplina=disciplina)
+    usuarioDisciplina = UsuarioDisciplina.objects.get_or_create(usuario=request.user, disciplina=disciplina)
 
     """if created:
          usuarioDisciplina.active()

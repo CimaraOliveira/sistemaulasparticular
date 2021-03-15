@@ -23,6 +23,8 @@
       {% for usuariodisciplina in usuariodisciplinas %}
       <tr>
 
+          <td>{{ usuariodisciplina.disciplina.nome }}</td>
+
         <td>{{ usuariodisciplina.usuario.first_name }}</td>
 
         <td>{{ usuariodisciplina.disciplina.professor }}</td>
@@ -43,6 +45,5 @@
     </table>
   </div>
 </div>
-
 
 {% endblock %}

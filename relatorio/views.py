@@ -1,6 +1,4 @@
 
-from datetime import datetime
-from django.shortcuts import render
 from io import BytesIO
 from reportlab.pdfgen import canvas
 from django.http import HttpResponse

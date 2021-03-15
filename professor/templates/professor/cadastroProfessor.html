@@ -14,7 +14,8 @@
      <form method="POST" action="{% url 'professor:cadastroProfessor' %}" enctype="multipart/form-data">
          {% csrf_token %}
 
-           <div class="col-md-12 ">
+          {{form|crispy}}
+           <!--<div class="col-md-12 ">
             <div class="form-group">
                <label for="nome">Nome</label>
               <input type="text" name="nome" class="form-control">
@@ -41,7 +42,7 @@
                  <label for="imagem">imagem</label>
                  <input type="file" name="imagem" class="form-control">
              </div>
-         </div>
+         </div>-->
 
           <div class="row">
                 <div class="col">

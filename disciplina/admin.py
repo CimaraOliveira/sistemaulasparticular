@@ -8,17 +8,21 @@ class UserAdmin(admin.ModelAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = Usuario
-    list_display = ['username', 'first_name', 'last_name', 'email', 'status','is_superuser', 'is_active', 'is_staff', ]
+    list_display = ['id','username', 'first_name', 'last_name', 'email', 'status','is_superuser', 'is_active', 'is_staff', ]
 
 class DisciplinaAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'titulo', 'professor', 'descricao_longa']
+    list_display = ['id', 'nome', 'titulo', 'professor', 'descricao_longa', 'professor_id',]
+
+class ProfessorAdmin(admin.ModelAdmin):
+    list_display = ['id', 'nome']
+
 
 class UsuarioDisciplinaAdmin(admin.ModelAdmin):
     list_display = ['id','disciplina', 'status', 'usuario', 'data_reserva', ]
 
 
 admin.site.register(Disciplina, DisciplinaAdmin)
-admin.site.register(Professor)
+admin.site.register(Professor,ProfessorAdmin)
 admin.site.register(UsuarioDisciplina,UsuarioDisciplinaAdmin)
 
 

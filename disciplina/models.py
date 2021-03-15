@@ -17,6 +17,7 @@ class Usuario(AbstractUser):
     is_active = models.BooleanField(default=True)
 
 
+
     LOAN_STATUS = (
         ('professor', 'Professor'),
         ('aluno', 'Aluno'),
@@ -35,7 +36,7 @@ class Usuario(AbstractUser):
 
 
 class Professor(models.Model):
-    #user = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    user = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     nome = models.CharField(max_length=50)
     descricao_curta = models.TextField('Descrição',max_length=255)
     descricao_longa = models.TextField()
@@ -88,13 +89,6 @@ class Disciplina(models.Model):
 
         super().save(*args, **kwargs)
 
-        def save(self, *args, **kwargs):
-            if not self.id:
-                id = f'{slugify(self.nome)}'
-                self.slug = id
-
-            super().save(*args, **kwargs)
-
         max_image_size = 800
 
         if self.imagem:
@@ -105,7 +99,7 @@ class Disciplina(models.Model):
 class UsuarioDisciplina(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="linguagem")
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE, related_name="linguagem")
-    #professor = models.ForeignKey(Professor, on_delete=models.CASCADE, related_name="Professor")
+
     LOAN_STATUS = (
         ('Pendente', 'Pendente'),
         ('Aprovado', 'Aprovado'),
