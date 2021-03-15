@@ -6,7 +6,8 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sistemaulas.settings.base')
+    #os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sistemaulas.settings.base')# local
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sistemaulas.settings.heroku') #dev
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
