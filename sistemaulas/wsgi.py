@@ -11,7 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-#os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sistemaulas.settings.base')
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sistemaulas.settings.heroku')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sistemaulas.settings')
+#os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sistemaulas.settings.heroku')
 
 application = get_wsgi_application()
