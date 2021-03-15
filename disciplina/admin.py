@@ -14,7 +14,7 @@ class DisciplinaAdmin(admin.ModelAdmin):
     list_display = ['id', 'nome', 'titulo', 'professor', 'descricao_longa', 'professor_id',]
 
 class ProfessorAdmin(admin.ModelAdmin):
-    list_display = ['id', 'nome']
+    list_display = ['id', 'nome','user_id',]
 
 
 class UsuarioDisciplinaAdmin(admin.ModelAdmin):
