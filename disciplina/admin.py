@@ -14,11 +14,11 @@ class DisciplinaAdmin(admin.ModelAdmin):
     list_display = ['id', 'nome', 'titulo', 'professor', 'descricao_longa', 'professor_id',]
 
 class ProfessorAdmin(admin.ModelAdmin):
-    list_display = ['id', 'nome','user_id',]
+    list_display = ['id', 'nome','user_id','descricao_longa',]
 
 
 class UsuarioDisciplinaAdmin(admin.ModelAdmin):
-    list_display = ['id','disciplina', 'status', 'usuario', 'data_reserva', ]
+    list_display = ['id','disciplina', 'status', 'usuario', 'data_reserva','disciplina_id', 'usuario_id', ]
 
 
 admin.site.register(Disciplina, DisciplinaAdmin)

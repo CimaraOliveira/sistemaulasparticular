@@ -109,7 +109,7 @@ def listarPedidosReserva(request):
     #usuariodisciplinas = UsuarioDisciplina.objects.filter(usuario_id=request.user.id)
     #usuariodisciplinas = UsuarioDisciplina.objects.select_related('disciplina').filter(disciplina_id=request.user.id)
     professor =  Professor.objects.get(user_id=request.user.id)
-    usuariodisciplinas = UsuarioDisciplina.objects.raw('select disciplina_id from usuariodisciplina')
+    usuariodisciplinas = UsuarioDisciplina.objects.filter(usuario_id=request.user.id)
     context = {
         'usuariodisciplinas': usuariodisciplinas
 
