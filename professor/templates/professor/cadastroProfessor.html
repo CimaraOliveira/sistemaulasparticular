@@ -14,11 +14,10 @@
      <form method="POST" action="{% url 'professor:cadastroProfessor' %}" enctype="multipart/form-data">
          {% csrf_token %}
 
-          {{form|crispy}}
-           <!--<div class="col-md-12 ">
+        <div class="col-md-12 ">
             <div class="form-group">
                <label for="nome">Nome</label>
-              <input type="text" name="nome" class="form-control">
+              <input type="text" name="nome" value="{{request.user.username}}" class="form-control">
             </div>
         </div>
 
@@ -42,7 +41,7 @@
                  <label for="imagem">imagem</label>
                  <input type="file" name="imagem" class="form-control">
              </div>
-         </div>-->
+         </div>
 
           <div class="row">
                 <div class="col">

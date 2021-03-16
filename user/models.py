@@ -10,7 +10,7 @@ class FormUsuDisc(forms.ModelForm):
 class FormDadosUsu(forms.ModelForm):
     class Meta:
         model = Usuario
-        exclude = ('is_active','slug','is_staff','is_superuser','telefone','user_permissions','groups','last_login','password','status',)
+        exclude = ('is_active','slug','is_staff','is_superuser','telefone','user_permissions','groups','last_login','password','status', 'date_joined',)
 
 class FormCreateUsu(forms.ModelForm):
     models = Usuario

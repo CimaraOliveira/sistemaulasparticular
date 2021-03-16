@@ -43,8 +43,8 @@
             </div>
         <div>
         <div class='details'>
-            {% for user in usuarioDiscs %}
-            <h2>{{user.username}}</h2>
+            {% for usuariodisciplina in usuarioDiscs %}
+            <h2>{{usuariodisciplina.disciplina.nome}}</h2>
             <hr class='hrItem' />
             {% endfor %}
         </div>

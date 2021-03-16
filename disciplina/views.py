@@ -25,6 +25,7 @@ def criar(request):
     password = request.POST['password']
     password1 = request.POST['password1']
 
+
     if not first_name or not email or not username or not password \
             or not password1:
         messages.error(request, 'Preencha todos os Campos!')

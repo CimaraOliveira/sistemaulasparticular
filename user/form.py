@@ -10,7 +10,7 @@ class ReservarDiscForm(ModelForm):
 class AlterDadoUsuForm(ModelForm):
     class Meta:
         model = Usuario
-        fields = ['username', 'first_name', 'email',]
+        fields = ['username', 'first_name', 'email']
 
 class UserCreateForm(ModelForm):
     class Meta:

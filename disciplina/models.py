@@ -36,7 +36,6 @@ class Usuario(AbstractUser):
 
 
 class Professor(models.Model):
-    user = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     nome = models.CharField(max_length=50)
     descricao_curta = models.TextField('Descrição',max_length=255)
     descricao_longa = models.TextField()
@@ -61,9 +60,7 @@ class Disciplina(models.Model):
     descricao_longa = models.TextField('Descrição')
     imagem = models.ImageField(upload_to='disciplina_imagens/%Y/%m/', blank=True, null=True)
     slug = models.SlugField('Atalho', unique=True, blank=True, null=True)
-    data_inicio = models.DateField('Data Cadastro', null=True, blank=True)
-
-    # data_reserva = models.DateTimeField('Data Início',default=timezone.now)
+    data_reserva = models.DateTimeField('Data Início',default=timezone.now)
 
     @staticmethod
     def resize_image(img, new_width=800):
@@ -89,11 +86,17 @@ class Disciplina(models.Model):
 
         super().save(*args, **kwargs)
 
+        def save(self, *args, **kwargs):
+            if not self.id:
+                id = f'{slugify(self.nome)}'
+                self.slug = id
+
+            super().save(*args, **kwargs)
+
         max_image_size = 800
 
         if self.imagem:
             self.resize_image(self.imagem, max_image_size)
-
 
 
 class UsuarioDisciplina(models.Model):

@@ -5,9 +5,9 @@ db.sqlite3
 .venv
 staticfiles
 /venv
-sistemaulas/static/
 *.idea
 *pyc
+sqlite3
 
 
 

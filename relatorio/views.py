@@ -6,12 +6,12 @@ from django.template.loader import get_template
 from django.views.generic import View
 
 from sistemaulas.utils import render_to_pdf
-from disciplina.models import Usuario
+from disciplina.models import UsuarioDisciplina
 
 
 class GeneratePdf(View):
     def get(self, request, *args, **kwargs):
-        usuarioDisc = Usuario.objects.order_by('username').filter(username=self.request.user)
+        usuarioDisc = UsuarioDisciplina.objects.order_by('usuario').filter(usuario=request.user.id)
         data = {'usuarioDiscs': usuarioDisc}
 
         pdf = render_to_pdf('relatorio/invoice.html', data)
