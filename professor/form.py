@@ -6,13 +6,13 @@ class CadDiscForm(ModelForm):
     class Meta:
         model = Disciplina
         fields = '__all__'
-        exclude = ('slug',)
+        exclude = ('slug','usuario','professor',)
 
 class CadProfForm(ModelForm):
     class Meta:
         model = Professor
         fields = '__all__'
-        exclude = ()
+        exclude = ('usuario', 'professor_id',)
 
 class ReservarDiscForm(ModelForm):
     class Meta:

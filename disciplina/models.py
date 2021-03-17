@@ -9,14 +9,11 @@ from django.utils import timezone
 
 
 class Usuario(AbstractUser):
-    #is_active: BooleanField = models.BooleanField('Ativo', default=False)
     slug = models.SlugField('Atalho', max_length=200, null=True, blank=True)
     telefone = models.CharField('Telefone', max_length=20)
     is_staff = models.BooleanField(default=1)
     is_superuser = models.BooleanField(default=1)
     is_active = models.BooleanField(default=True)
-
-
 
     LOAN_STATUS = (
         ('professor', 'Professor'),
@@ -24,7 +21,6 @@ class Usuario(AbstractUser):
 
     )
     status = models.CharField(max_length=10,choices=LOAN_STATUS,blank=True)
-
 
     @property
     def name(self):
@@ -36,11 +32,13 @@ class Usuario(AbstractUser):
 
 
 class Professor(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE,related_name="usuario")
     nome = models.CharField(max_length=50)
     descricao_curta = models.TextField('Descrição',max_length=255)
     descricao_longa = models.TextField()
     imagem = models.ImageField(upload_to='disciplina_imagens/%Y/%m/', blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
+
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -50,8 +48,6 @@ class Professor(models.Model):
 
     def __str__(self):
         return self.nome
-
-
 
 class Disciplina(models.Model):
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE,related_name="professor")
@@ -102,6 +98,8 @@ class Disciplina(models.Model):
 class UsuarioDisciplina(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="linguagem")
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE, related_name="linguagem")
+    professor = models.ForeignKey(Professor, on_delete=models.CASCADE, null=True, blank=True)
+
 
     LOAN_STATUS = (
         ('Pendente', 'Pendente'),
@@ -111,16 +109,13 @@ class UsuarioDisciplina(models.Model):
     status = models.CharField('Situação', max_length=12, default='Pendente', choices=LOAN_STATUS, blank=True)
     data_reserva = models.DateField('Data Reserva', null=True, blank=True)
 
-    #aceitarAgendamento = models.BooleanField("Aprovado", null=True, blank=True)
-    #agendamentoPendente = models.BooleanField("Aguardando", null=True, blank=True)
-
 
     def active(self):
         self.status = 1
         self.save()
 
-
     class Meta:
         verbose_name = 'Reserva'
         verbose_name_plural = 'Reservas'
+        #unique_together = (('usuario','disciplina'),)
 

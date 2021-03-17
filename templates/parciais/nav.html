@@ -68,6 +68,13 @@
                    <li class="nav-item">
                        <a class="nav-link" href="{% url 'user:user_logout' %}">Sair</a>
                    </li>
+
+                   <li>
+                       <a href="{{ professor.slug }}">
+                           <img class="card-img-top" src="{{ professor.imagem.url  }}" alt="{{ professor.nome }}"
+                                style="max-width: 350px; height: auto">
+                       </a>
+                   </li>
             {% else %}
 
 

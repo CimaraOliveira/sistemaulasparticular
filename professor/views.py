@@ -6,13 +6,21 @@ from disciplina.models import Disciplina, Professor, UsuarioDisciplina, Usuario
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
-
+"""
+        obj = form.save(commit=False)
+       obj.usuario = request.user
+       obj.save() 
+        """
 
 @login_required(login_url='user:user_login')
 def cadastrarDisc(request):
     form = FormDisciplina(request.POST, request.FILES)
     if form.is_valid():
-        form.save()
+        salvar = form.save(commit=False)
+        salvar.usuario = request.user
+        salvar.save()
+
+        #form.save()
         return redirect('professor:disProfessor')
     else:
         form = FormDisciplina(request.POST, request.FILES)
@@ -27,7 +35,9 @@ def cadastrarDisc(request):
 def cadastroProfessor(request):
     form = FormProfessor(request.POST, request.FILES)
     if form.is_valid():
-        form.save()
+        salvar = form.save(commit=False)
+        salvar.usuario = request.user
+        salvar.save()
         messages.success(request, 'Perfil Adicionado com sucesso!')
         return redirect('professor:detalhesProfessor')
 
@@ -76,7 +86,7 @@ def removerDisciplina(request, id):
 
 @login_required(login_url='user:user_login')
 def detalhesProfessor(request):
-    professores = Professor.objects.filter(id=request.user.id)
+    professores = Professor.objects.filter(usuario_id=request.user.id)
     context = {
         'professores': professores
     }
@@ -101,16 +111,16 @@ def editarProfessor(request, id):
 
 @login_required(login_url='user:user_login')
 def listarPedidosReserva(request):
-    professor = request.user.id
-    #usuariodisciplinas = UsuarioDisciplina.objects.filter(usuario_id=request.user.id)
-    usuariodisciplinas = UsuarioDisciplina.objects.filter(id=3)
-    #usuariodisciplina = UsuarioDisciplina.objects.select_related('usuario').filter(usuario_id=request.user.id)
-    #usuariodisciplinas = UsuarioDisciplina.objects.select_related('usuario').filter(usuario_id=request.user.id)
+    professor = Professor.objects.get(usuario_id=request.user.id)
+    usuariodisciplinas = UsuarioDisciplina.objects.filter(professor_id=professor)
+
 
     context = {
-        'usuariodisciplinas': usuariodisciplinas,
+          'usuariodisciplinas': usuariodisciplinas,
     }
+
     return render(request, 'professor/listarPedidosReserva.html', context)
+
 
 
 @login_required(login_url='user:user_login')
@@ -132,13 +142,14 @@ def alterarStatusReserva(request, id):
 
 @login_required(login_url='user:user_login')
 def disProfessor(request):
-    professor = request.user.id
-    print(professor)
-    #professoeDisciplinas = Disciplina.objects.filter(professor_id=request.user.id)
-    professoeDisciplinas = Disciplina.objects.filter(id=request.userg)
+
+
+    professor = Professor.objects.get(usuario_id=request.user.id)
+    professoeDisciplinas = Disciplina.objects.filter(professor_id=professor)
 
     context = {
         'professoeDisciplinas': professoeDisciplinas,
 
     }
     return render(request, 'professor/disProfessor.html', context)
+

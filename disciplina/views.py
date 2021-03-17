@@ -77,18 +77,21 @@ def listar(request):
         'disciplinas': disciplinas
     }
     return render(request, 'disciplina/listar.html', context)
-
-
-@login_required(login_url='user:user_login')
-def reservarDisciplina(request, slug):
-    disciplina = get_object_or_404(Disciplina, slug=slug)
+"""#professor_id = request.POST.get('professor_id')
+    #professor = Professor.objects.filter(id=professor_id)
 
     #usuarioDisciplina, created = UsuarioDisciplina.objects.get_or_create(usuario=request.user, disciplina=disciplina)
-    usuarioDisciplina = UsuarioDisciplina.objects.get_or_create(usuario=request.user, disciplina=disciplina)
+"""
 
-    """if created:
-         usuarioDisciplina.active()
-         messages.info(request, 'Você já está inscrito nessa Disciplina!')"""
+@login_required(login_url='user:user_login')
+def reservarDisciplina(request, slug, id):
+    disciplina = get_object_or_404(Disciplina, slug=slug)
+    professor = get_object_or_404(Professor, id=id)
+
+    print(disciplina.professor_id)
+
+
+    UsuarioDisciplina.objects.get_or_create(usuario=request.user,  disciplina=disciplina, professor=professor)
 
     messages.success(request, 'Sua solicitação vai ser analisada!')
     return redirect('user:minhasDisciplinas')

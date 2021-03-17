@@ -14,16 +14,20 @@
     </div>
 <div class="col-lg">
     <div class="mt-4 mt-lg-0">
+
         <h1 class="h2">{{disciplina.nome}}</h1>
         <p class="lead">{{disciplina.descricao_longa | linebreaks}}</p>
+
         <h1 class="lead"> Professor:
             {{disciplina.professor}}
+
         </h1>
+
 
 
     </div>
     <!--<button type="submit"  class="btn btn-primary">Inscrever-se</button>-->
-    <a href="{% url 'disciplina:reservarDisciplina' disciplina.slug %}" class="btn btn-primary">Inscreva-se</a>
+    <a href="{% url 'disciplina:reservarDisciplina' disciplina.slug  disciplina.professor.id %}" class="btn btn-primary">Inscreva-se</a>
 </div>
 </div>
 
