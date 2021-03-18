@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {%block conteudo%}
 
+
 <div class="card mb-3">
     <div class="card-header">
         <i class="fa fa fa-institution"></i>Perfil Professor
@@ -36,14 +37,10 @@
                 <td></td>
                 {% endif %}
 
-                {% if user.is_authenticated %}
-                 {% if user.status == 'professor' %}
+
                 <td>
                     <a class="btn btn-info" href="{% url 'professor:editarProfessor' professor.id %}">Editar</a>
                 </td>
-                {% endif %}
-
-                {% endif %}
 
             </tr>
             {% endfor %}
@@ -53,3 +50,7 @@
 </div>
 
 {% endblock %}
+
+
+
+

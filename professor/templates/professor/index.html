@@ -1,3 +1,23 @@
+    {% for professor in professores %}
+   <dl>
 
-<h1></h1>
-<a class="nav-link" href="{% url 'login' %}">Clique Aqui para entrar novamente</a>
+       {% if professor.imagem %}
+       <dd><img width="50px" height="50px" src="{{ professor.imagem.url  }}"></dd>
+       {%else%}
+       <dd></dd>
+       {% endif %}
+
+    <dt>Nome</dt>
+    <dd>{{ professor.nome}}</dd>
+
+    <dt>Descrição</dt>
+    <dd>{{ professor.descricao_curta }}</dd>
+
+    <dt>Formação</dt>
+    <dd>{{ professor.descricao_longa }}</dd>
+
+
+    <dt>Formação</dt>
+    <dd>{{ professor.descricao_longa }}</dd>
+
+  </dl>
