@@ -69,7 +69,7 @@ class DetalhesDisciplina(DetailView):
 @login_required(login_url='user:user_login')
 def listar(request):
     disciplinas = Disciplina.objects.all()
-    paginator = Paginator(disciplinas, 6)
+    paginator = Paginator(disciplinas, 9)
     page = request.GET.get('p')
     disciplinas = paginator.get_page(page)
 

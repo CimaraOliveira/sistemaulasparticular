@@ -77,14 +77,14 @@ class Disciplina(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            slug = f'{slugify(self.nome)}'
+            slug = f'{slugify(self.titulo)}'
             self.slug = slug
 
         super().save(*args, **kwargs)
 
         def save(self, *args, **kwargs):
             if not self.id:
-                id = f'{slugify(self.nome)}'
+                id = f'{slugify(self.titulo)}'
                 self.slug = id
 
             super().save(*args, **kwargs)
