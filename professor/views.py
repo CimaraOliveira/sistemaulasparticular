@@ -117,6 +117,7 @@ def listarPedidosReserva(request):
 
     context = {
           'usuariodisciplinas': usuariodisciplinas,
+
     }
 
     return render(request, 'professor/listarPedidosReserva.html', context)
