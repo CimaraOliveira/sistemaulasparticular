@@ -28,15 +28,13 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('api/',include(router.urls)),
+    #path('apii/', include('rest_framework.urls')),
     path('swagger/', schema_view),
     path('relatorio/',include('relatorio.urls')),
 
-#path('disciplina/', include('disciplina.urls')),
-    #path('accounts/', listar),
-    #path('accounts/', include('django.contrib.auth.urls')),
-    #path('login/', include('django.contrib.auth.urls'), name='login')
+
     path('rest_auth/', include('rest_auth.urls')),
-    #path('rest_auth/registration/',include('rest_auth.registration.urls'))
+    #path('registration/',include('rest_auth.registration.urls'))
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

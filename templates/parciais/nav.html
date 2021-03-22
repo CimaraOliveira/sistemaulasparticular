@@ -34,6 +34,8 @@
                             Disciplinas</a>
                         <a class="dropdown-item" href="{% url 'user:detalhes' user.id %}">Dados Pessoais</a>
 
+                        <a class="dropdown-item" href="{% url 'gerar_relatorio' %}">Gerar Relatório</a>
+
                     </div>
                 </div>
             </li>
@@ -59,11 +61,17 @@
                         <a class="dropdown-item" href="{% url 'professor:listarPedidosReserva' %}">Aprovar
                             Agendamentos</a>
                         <a class="dropdown-item" href="{% url 'professor:detalhesProfessor' %}">Perfil Professor</a>
+                        
 
                     </div>
                 </div>
             </li>
             {% endif %}
+
+
+
+
+
 
 
                    <li class="nav-item">

@@ -16,10 +16,9 @@ from django.db.models import Q
 def cadastrarDisc(request):
     form = FormDisciplina(request.POST, request.FILES)
     if form.is_valid():
-        salvar = form.save(commit=False)
-        salvar.usuario = request.user
-        salvar.save()
-
+        obj = form.save(commit=False)
+        obj.usuario = request.user
+        obj.save()
         #form.save()
         return redirect('professor:disProfessor')
     else:

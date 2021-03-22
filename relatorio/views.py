@@ -61,3 +61,4 @@ def write_pdf_view(request):
     response.write(pdf)
 
     return response
+

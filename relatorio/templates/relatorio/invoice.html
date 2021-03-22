@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <title>Title</title>
+        <title>Gerar Relatório</title>
         <style type="text/css">
             body {
                 font-weight: 200;
@@ -39,14 +39,41 @@
     <body>
         <div class='wrapper'>
             <div class='header'>
-                <p class='title'>Relatório </p>
+                <p class='title'>Disciplinas Aprovadas </p>
             </div>
         <div>
         <div class='details'>
-            {% for usuariodisciplina in usuarioDiscs %}
-            <h2>{{usuariodisciplina.disciplina.nome}}</h2>
-            <hr class='hrItem' />
-            {% endfor %}
+           <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Disciplina</th>
+        <th scope="col">Titulo</th>
+        <th scope="col">Professor</th>
+        <th scope="col">Status</th>
+        <th scope="col">Data Aprovação</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      {% for usuariodisciplina in usuarioDiscs %}
+         {% if usuariodisciplina.status  == 'Aprovado' %}
+      <tr>
+
+        <td>{{ usuariodisciplina.disciplina.nome }}</td>
+
+        <td>{{usuariodisciplina.disciplina.titulo}}</td>
+
+        <td>{{usuariodisciplina.professor.nome}}</td>
+
+        <td>{{usuariodisciplina.status}}</td>
+
+
+        <td>{{ usuariodisciplina.data_reserva }}</td>
+      </tr>
+         {% endif %}
+      {% endfor %}
+           </table>
+
         </div>
     </div>
         </div>

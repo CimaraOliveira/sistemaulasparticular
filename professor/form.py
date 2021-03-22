@@ -11,8 +11,8 @@ class CadDiscForm(ModelForm):
 class CadProfForm(ModelForm):
     class Meta:
         model = Professor
-        fields = '__all__'
-        exclude = ('usuario', 'professor_id',)
+        fields = ['nome', 'descricao_curta', 'descricao_longa', 'imagem','slug',]
+        exclude = ('usuario',)
 
 class ReservarDiscForm(ModelForm):
     class Meta:

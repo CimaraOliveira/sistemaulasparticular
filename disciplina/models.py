@@ -117,5 +117,5 @@ class UsuarioDisciplina(models.Model):
     class Meta:
         verbose_name = 'Reserva'
         verbose_name_plural = 'Reservas'
-        #unique_together = (('usuario','disciplina'),)
+
 
