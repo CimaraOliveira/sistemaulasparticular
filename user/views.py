@@ -4,8 +4,6 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 from .models import FormDadosUsu
 from disciplina.models import UsuarioDisciplina, Usuario
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordChangeView,PasswordResetCompleteView
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 
 
@@ -28,6 +26,7 @@ def user_login(request):
             if user.status == 'aluno':
                return redirect('disciplina:listar')
             if user.status == 'professor':
+
                 return redirect('disciplina:listar')
 
     messages.error(request, 'Usuário ou Senha Inválidos!')

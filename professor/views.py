@@ -6,18 +6,14 @@ from disciplina.models import Disciplina, Professor, UsuarioDisciplina, Usuario
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
-"""
-        obj = form.save(commit=False)
-       obj.usuario = request.user
-       obj.save() 
-        """
 
 @login_required(login_url='user:user_login')
 def cadastrarDisc(request):
     form = FormDisciplina(request.POST, request.FILES)
     if form.is_valid():
         obj = form.save(commit=False)
-        obj.usuario = request.user
+        #obj.professor = request.user.id
+        obj.professor = Professor.objects.get(usuario_id=request.user.id)
         obj.save()
         #form.save()
         return redirect('professor:disProfessor')
@@ -32,6 +28,7 @@ def cadastrarDisc(request):
 
 @login_required(login_url='user:user_login')
 def cadastroProfessor(request):
+
     form = FormProfessor(request.POST, request.FILES)
     if form.is_valid():
         salvar = form.save(commit=False)
@@ -131,7 +128,7 @@ def alterarStatusReserva(request, id):
 
     if form.is_valid():
         form.save()
-        messages.success(request, 'Situaçao Aprovada com Sucesso!')
+        messages.success(request, 'Situaçao alterada com Sucesso!')
         return redirect('professor:listarPedidosReserva')
 
     data['form'] = form
@@ -142,14 +139,10 @@ def alterarStatusReserva(request, id):
 
 @login_required(login_url='user:user_login')
 def disProfessor(request):
-
-
     professor = Professor.objects.get(usuario_id=request.user.id)
     professoeDisciplinas = Disciplina.objects.filter(professor_id=professor)
-
     context = {
         'professoeDisciplinas': professoeDisciplinas,
 
     }
     return render(request, 'professor/disProfessor.html', context)
-
