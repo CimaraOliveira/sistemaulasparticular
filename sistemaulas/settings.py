@@ -38,10 +38,20 @@ ALLOWED_HOSTS = ['https://sistema-aulas.herokuapp.com/']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.twitter',
+    'allauth.socialaccount.providers.facebook',
 
     'crispy_forms',
     'rest_framework',
@@ -56,16 +66,30 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'knox',
     'rest_auth',
-    #'allauth',
-    #'allauth.account',
-    #'rest_auth',
-    #'rest_auth.registration'
 
+
+
+
+    #pip install django-allauth
+    #https://django-allauth.readthedocs.io/en/latest/installation.html
 
 
 ]
 
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
 
+
+SITE_ID = 1
 
 
 
@@ -110,6 +134,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sistemaulas.wsgi.application'
 
+AUTHENTICATION_BACKENDS = [
+
+    'django.contrib.auth.backends.ModelBackend',
+
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+]
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
