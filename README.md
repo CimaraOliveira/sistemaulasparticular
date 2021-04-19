@@ -1,4 +1,4 @@
-# sistemaulasparticular
+# Sistema de Aulas Particulares
 
 Orientações para execução do projeto em uma máquina local.
 
@@ -16,7 +16,7 @@ Orientações para execução do projeto em uma máquina local.
 
 Windows:
 
-git clone https://github.com/cleocardoso/WorkBook.git
+git clone https://github.com/CimaraOliveira/sistemaulasparticular.git
 
 python3 -m venv .venv
 
@@ -32,7 +32,7 @@ python manage.py runserver
 
 Linux:
 
-git clone https://github.com/cleocardoso/WorkBook.git
+git clone https://github.com/CimaraOliveira/sistemaulasparticular.git
 
 sudo apt install python3-venv
 
