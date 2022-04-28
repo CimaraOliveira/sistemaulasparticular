@@ -21,6 +21,7 @@ class UsuarioDisciplinaAdmin(admin.ModelAdmin):
     list_display = ['id','disciplina', 'status', 'usuario', 'data_reserva','disciplina_id', 'usuario_id', 'professor_id', ]
 
 
+
 admin.site.register(Disciplina, DisciplinaAdmin)
 admin.site.register(Professor,ProfessorAdmin)
 admin.site.register(UsuarioDisciplina,UsuarioDisciplinaAdmin)
